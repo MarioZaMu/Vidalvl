@@ -17,12 +17,3 @@ sealed interface VerificationResult {
 interface PhotoVerifier {
     suspend fun verify(photoJpeg: ByteArray, missionTitle: String, missionDescription: String?): VerificationResult
 }
-
-/** Used while the camera flow is built and tested: accepts everything. */
-class AcceptAllVerifier : PhotoVerifier {
-    override suspend fun verify(
-        photoJpeg: ByteArray,
-        missionTitle: String,
-        missionDescription: String?
-    ): VerificationResult = VerificationResult.Verified
-}
