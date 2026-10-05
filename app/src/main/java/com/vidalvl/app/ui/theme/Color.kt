@@ -2,25 +2,25 @@ package com.vidalvl.app.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-// Dark mode: night blue + reds
-val DarkBackground = Color(0xFF161E2F)
-val DarkSurface = Color(0xFF242F49)
-val DarkSurfaceVariant = Color(0xFF384358)
-val DarkOutline = Color(0xFF384358)
+// Dark mode: dark fantasy. Warm near-black, crimson and ember.
+val DarkBackground = Color(0xFF0E0D12)
+val DarkSurface = Color(0xFF1A1822)
+val DarkSurfaceVariant = Color(0xFF26222F)
+val DarkOutline = Color(0xFF3A3548)
 val DarkPrimary = Color(0xFFB51A2B)
-val DarkPrimaryContainer = Color(0xFF541A2E)
-val DarkAccent = Color(0xFFFFA586)
-val DarkTextPrimary = Color(0xFFF4EEF0)
-val DarkTextSecondary = Color(0xFFA9B2C6)
+val DarkPrimaryContainer = Color(0xFF4A1522)
+val DarkAccent = Color(0xFFF0A04B)
+val DarkTextPrimary = Color(0xFFF2ECE4)
+val DarkTextSecondary = Color(0xFFB5AEBD)
 val DarkError = Color(0xFFFF8A8A)
 
-// Light mode: Ocean Royale
-val LightBackground = Color(0xFFF4FBFE)
-val LightSurface = Color(0xFFCAF0F8)
-val LightSurfaceVariant = Color(0xFFB5E3F0)
-val LightOutline = Color(0xFF8FD3E6)
-val LightPrimary = Color(0xFF023EBA)
-val LightAccent = Color(0xFFFBB02D)
-val LightTextPrimary = Color(0xFF03045E)
-val LightTextSecondary = Color(0xFF3A4A8C)
-val LightError = Color(0xFFC62840)
+// Light mode: parchment. Cream, crimson and old gold.
+val LightBackground = Color(0xFFF6EFE0)
+val LightSurface = Color(0xFFEADFC8)
+val LightSurfaceVariant = Color(0xFFE0D3B6)
+val LightOutline = Color(0xFFB5A586)
+val LightPrimary = Color(0xFF9E1B2B)
+val LightAccent = Color(0xFFC98A1B)
+val LightTextPrimary = Color(0xFF2B2118)
+val LightTextSecondary = Color(0xFF5C4D3A)
+val LightError = Color(0xFFA11C16)

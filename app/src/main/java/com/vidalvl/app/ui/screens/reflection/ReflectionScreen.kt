@@ -259,7 +259,7 @@ private fun EventRow(event: TimelineEvent, zone: ZoneId) {
             }
 
             is TimelineEvent.AchievementUnlocked -> {
-                val color = MaterialTheme.colorScheme.primary
+                val color = VidalvlTheme.attributeColors.accentText
                 Badge(color) { Icon(painterResource(R.drawable.ic_trophy), null, tint = color, modifier = Modifier.size(22.dp)) }
                 EventText(
                     title = stringResource(R.string.item_req_achievement, stringResource(event.achievement.titleRes())),
@@ -330,7 +330,7 @@ private fun AchievementCard(row: AchievementRowUi, zone: ZoneId) {
                 Icon(
                     painter = painterResource(R.drawable.ic_trophy),
                     contentDescription = null,
-                    tint = if (row.unlocked) colors.primary else colors.onSurfaceVariant.copy(alpha = 0.6f),
+                    tint = if (row.unlocked) VidalvlTheme.attributeColors.accentText else colors.onSurfaceVariant.copy(alpha = 0.6f),
                     modifier = Modifier.size(26.dp)
                 )
             }
@@ -362,7 +362,7 @@ private fun AchievementCard(row: AchievementRowUi, zone: ZoneId) {
                     Text(
                         stringResource(R.string.achievement_unlocked_on, date),
                         style = MaterialTheme.typography.labelSmall,
-                        color = colors.primary
+                        color = VidalvlTheme.attributeColors.accentText
                     )
                 }
                 if (prize != null) {

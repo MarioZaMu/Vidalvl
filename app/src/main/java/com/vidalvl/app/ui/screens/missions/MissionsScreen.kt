@@ -457,7 +457,7 @@ private fun AchievementsDialog(unlocks: List<AchievementUnlock>, onDismiss: () -
                             Icon(
                                 painter = painterResource(R.drawable.ic_trophy),
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.primary,
+                                tint = VidalvlTheme.attributeColors.accentText,
                                 modifier = Modifier.size(28.dp)
                             )
                         }

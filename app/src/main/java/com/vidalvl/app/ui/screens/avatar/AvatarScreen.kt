@@ -339,7 +339,7 @@ private fun RowScope.ItemTile(
         Text(
             text = note,
             style = MaterialTheme.typography.bodySmall,
-            color = if (equipped) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
+            color = if (equipped) VidalvlTheme.attributeColors.accentText else MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
             maxLines = 2,
             minLines = 2

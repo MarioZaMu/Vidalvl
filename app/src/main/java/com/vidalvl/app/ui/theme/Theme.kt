@@ -21,37 +21,47 @@ fun ThemeMode.resolveDark(): Boolean = when (this) {
     ThemeMode.DARK -> true
 }
 
-/** One color per attribute, with a tone adjusted for each mode. */
+/**
+ * One color per attribute, with a tone adjusted for each mode so the text stays readable on cards.
+ * [accentText] is for emphasized text and small icons: the primary color is too dim for that on dark backgrounds.
+ */
 @Immutable
 data class AttributeColors(
     val body: Color,
     val mind: Color,
     val discipline: Color,
     val social: Color,
-    val xp: Color
+    val xp: Color,
+    val accentText: Color
 )
 
-private val DarkAttributeColors = AttributeColors(
+internal val DarkAttributeColors = AttributeColors(
     body = Color(0xFFFF8A4C),
-    mind = Color(0xFF4DA3FF),
+    mind = Color(0xFF5DADFF),
     discipline = Color(0xFFF5B83D),
-    social = Color(0xFF34D399),
-    xp = DarkAccent
+    social = Color(0xFF3DDC9E),
+    xp = DarkAccent,
+    accentText = DarkAccent
 )
 
-private val LightAttributeColors = AttributeColors(
-    body = Color(0xFFD9480F),
-    mind = Color(0xFF4F46C8),
-    discipline = Color(0xFF9A5B00),
-    social = Color(0xFF0B7A55),
-    xp = LightPrimary
+internal val LightAttributeColors = AttributeColors(
+    body = Color(0xFF9C3005),
+    mind = Color(0xFF3B33B0),
+    discipline = Color(0xFF7A4A00),
+    social = Color(0xFF0A5C3E),
+    xp = LightPrimary,
+    accentText = LightPrimary
 )
 
 private val LocalAttributeColors = staticCompositionLocalOf { DarkAttributeColors }
 
-private val DarkColorScheme = darkColorScheme(
+// Material 3 picks the dialog, sheet and bar colors from the surfaceContainer family, so all of it is set
+// explicitly: otherwise they would fall back to the default purple-gray tones.
+internal val DarkColorScheme = darkColorScheme(
     primary = DarkPrimary,
     onPrimary = Color.White,
+    primaryContainer = DarkPrimaryContainer,
+    onPrimaryContainer = DarkTextPrimary,
     secondaryContainer = DarkPrimaryContainer,
     onSecondaryContainer = DarkAccent,
     tertiary = DarkAccent,
@@ -62,14 +72,21 @@ private val DarkColorScheme = darkColorScheme(
     onSurface = DarkTextPrimary,
     surfaceVariant = DarkSurfaceVariant,
     onSurfaceVariant = DarkTextSecondary,
+    surfaceContainerLowest = DarkBackground,
+    surfaceContainerLow = Color(0xFF16141C),
     surfaceContainer = DarkSurface,
+    surfaceContainerHigh = Color(0xFF211E2B),
+    surfaceContainerHighest = DarkSurfaceVariant,
     outline = DarkOutline,
+    outlineVariant = DarkOutline,
     error = DarkError
 )
 
-private val LightColorScheme = lightColorScheme(
+internal val LightColorScheme = lightColorScheme(
     primary = LightPrimary,
     onPrimary = Color.White,
+    primaryContainer = LightSurfaceVariant,
+    onPrimaryContainer = LightTextPrimary,
     secondaryContainer = LightPrimary,
     onSecondaryContainer = Color.White,
     tertiary = LightAccent,
@@ -80,8 +97,13 @@ private val LightColorScheme = lightColorScheme(
     onSurface = LightTextPrimary,
     surfaceVariant = LightSurfaceVariant,
     onSurfaceVariant = LightTextSecondary,
+    surfaceContainerLowest = LightBackground,
+    surfaceContainerLow = Color(0xFFF0E7D3),
     surfaceContainer = LightSurface,
+    surfaceContainerHigh = Color(0xFFE5DABE),
+    surfaceContainerHighest = LightSurfaceVariant,
     outline = LightOutline,
+    outlineVariant = LightOutline,
     error = LightError
 )
 

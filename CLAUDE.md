@@ -41,6 +41,12 @@ Tested on a Xiaomi phone (USB install enabled) and Pixel 8 emulator (API 37).
 4B missions screen redesign (Habitica-style references); 6 AI camera verification (CameraX + Retrofit, provider TBD);
 7 AI suggestions + motivational messages; 8 achievements + "Reflejo" timeline; 9 polish (palette, dark background, icon, fonts, usability tests).
 
-## Design (to revisit in phase 9)
-Dark: bg 161E2F, cards 242F49, borders 384358, primary B51A2B, accent FFA586. Light "Ocean Royale": bg F4FBFE, cards CAF0F8, primary 023EBA, accent FBB02D.
-I dislike the current dark background; palette gets reviewed at the end.
+## Design (decided in phase 9)
+Dark "dark fantasy": bg 0E0D12, cards 1A1822, borders 3A3548, primary B51A2B (crimson), accent F0A04B (ember). Never use the primary as text on dark: use `VidalvlTheme.attributeColors.accentText`.
+Light "Pergamino": bg F6EFE0, cards EADFC8, primary 9E1B2B, accent C98A1B.
+Titles in Cinzel (bundled, OFL, third_party/fonts); body in the system font. Dark theme draws a pixel-art night sky (NightSky) behind transparent screens; cards and buttons stay opaque.
+ContrastTest enforces 4.5:1 for text in both modes: change a color, run the tests.
+
+## Progress
+Phases 5A-9A are done and approved; each approved phase is committed right away (English message, Co-Authored-By line).
+Pending: 9B (hardcoded strings in the bottom bar and Profile, accessibility pass), 9C (usability test kit). The app icon is done by the user.
