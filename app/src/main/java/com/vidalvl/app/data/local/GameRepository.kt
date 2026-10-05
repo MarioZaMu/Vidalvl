@@ -1,6 +1,10 @@
 package com.vidalvl.app.data.local
 
 import androidx.room.withTransaction
+import com.vidalvl.app.domain.model.Achievement
+import com.vidalvl.app.domain.model.AchievementRules
+import com.vidalvl.app.domain.model.AchievementStats
+import com.vidalvl.app.domain.model.AchievementUnlock
 import com.vidalvl.app.domain.model.Attribute
 import com.vidalvl.app.domain.model.CatalogItem
 import com.vidalvl.app.domain.model.GameRules
@@ -12,10 +16,19 @@ import com.vidalvl.app.domain.model.MissionRules
 import com.vidalvl.app.domain.model.MissionType
 import com.vidalvl.app.domain.model.PlayerGoals
 import com.vidalvl.app.domain.model.RewardRules
+import com.vidalvl.app.domain.model.StreakRules
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.time.LocalDate
 import java.time.ZoneId
+
+/** What completing a mission earned: level or weekly items, and achievements (with their prizes). */
+data class CompletionResult(
+    val items: List<CatalogItem>,
+    val achievements: List<AchievementUnlock>
+)
+
+private const val MAX_ACHIEVEMENT_PASSES = 3
 
 class GameRepository(private val db: VidalvlDatabase) {
     private val missionDao = db.missionDao()
@@ -25,6 +38,7 @@ class GameRepository(private val db: VidalvlDatabase) {
     private val inventoryDao = db.inventoryDao()
     private val equippedDao = db.equippedDao()
     private val goalsDao = db.goalsDao()
+    private val achievementDao = db.achievementDao()
 
     /** Emits null until the user finishes the welcome screen. */
     fun observeGoals(): Flow<PlayerGoals?> = goalsDao.observe().map { row ->
@@ -99,12 +113,14 @@ class GameRepository(private val db: VidalvlDatabase) {
     }
 
     /** Completes the mission for the current period and returns the items earned by it (usually none). */
-    suspend fun completeMission(mission: MissionEntity): List<CatalogItem> = db.withTransaction {
+    suspend fun completeMission(mission: MissionEntity): CompletionResult = db.withTransaction {
         val today = LocalDate.now().toEpochDay()
         val range = periodRange(mission.type, today)
         if (completionDao.findForMission(mission.id, range.first, range.last) != null) {
-            return@withTransaction emptyList()
+            return@withTransaction CompletionResult(emptyList(), emptyList())
         }
+        // Read before inserting: the last day with a mission before today, to detect a return after days away.
+        val previousDay = completionDao.latestDayBefore(today)
         completionDao.insert(
             MissionCompletionEntity(
                 missionId = mission.id,
@@ -118,7 +134,82 @@ class GameRepository(private val db: VidalvlDatabase) {
         attributeDao.upsert(
             state.copy(xp = state.xp + mission.xpReward, lastCompletedDayEpoch = today)
         )
-        grantRewards(mission)
+        val items = grantRewards(mission)
+        val achievements = evaluateAchievements(
+            perfectDay = isPerfectDay(today),
+            returnedAfterAbsence = previousDay != null &&
+                    today - previousDay >= AchievementRules.ABSENCE_DAYS
+        )
+        CompletionResult(items, achievements)
+    }
+
+    /** Looks for achievements the player's history already earns (also unlocks past ones after an update). */
+    suspend fun refreshAchievements(): List<AchievementUnlock> = db.withTransaction { evaluateAchievements() }
+
+    fun observeAchievements(): Flow<List<AchievementEntity>> = achievementDao.observeAll()
+
+    /** Debug tool: unlocks every achievement and gives their prizes, to see the screens without waiting weeks. */
+    suspend fun debugUnlockAllAchievements(): List<AchievementUnlock> = db.withTransaction {
+        val unlocked = achievementDao.unlockedIds().toSet()
+        Achievement.entries.filter { it.name !in unlocked }.map { unlock(it) }
+    }
+
+    /** All the regular (default and user) daily missions are done today, and there are at least three of them. */
+    private suspend fun isPerfectDay(today: Long): Boolean {
+        val regular = missionDao.regularDailyIds()
+        if (regular.size < AchievementRules.MIN_DAILY_FOR_PERFECT_DAY) return false
+        val done = completionDao.missionIdsOn(today).toSet()
+        return regular.all { it in done }
+    }
+
+    /**
+     * Unlocks what [stats] earn, gives the prizes and repeats once more: a prize can itself complete another
+     * achievement (the collector one counts items). Nothing is ever taken back.
+     */
+    private suspend fun evaluateAchievements(
+        perfectDay: Boolean = false,
+        returnedAfterAbsence: Boolean = false
+    ): List<AchievementUnlock> {
+        val result = mutableListOf<AchievementUnlock>()
+        repeat(MAX_ACHIEVEMENT_PASSES) {
+            val unlocked = achievementDao.unlockedIds()
+                .mapNotNull { id -> Achievement.entries.firstOrNull { it.name == id } }
+                .toSet()
+            val earned = AchievementRules.newlyEarned(
+                stats = achievementStats(perfectDay, returnedAfterAbsence),
+                alreadyUnlocked = unlocked
+            )
+            if (earned.isEmpty()) return result
+            earned.forEach { result += unlock(it) }
+        }
+        return result
+    }
+
+    private suspend fun achievementStats(perfectDay: Boolean, returned: Boolean): AchievementStats {
+        val states = attributeDao.getAll()
+        return AchievementStats(
+            totalCompletions = completionDao.count(),
+            weeklyCompletions = completionDao.weeklyCount(),
+            bestStreak = StreakRules.longestStreak(completionDao.allDays().toSet()),
+            totalLevel = GameRules.levelFor(states.sumOf { it.xp }).level,
+            attributeLevels = Attribute.entries.associateWith { attribute ->
+                GameRules.levelFor(states.firstOrNull { it.attribute == attribute }?.xp ?: 0).level
+            },
+            itemCount = inventoryDao.count(),
+            perfectDay = perfectDay,
+            returnedAfterAbsence = returned
+        )
+    }
+
+    private suspend fun unlock(achievement: Achievement): AchievementUnlock {
+        val now = System.currentTimeMillis()
+        achievementDao.insertIfMissing(AchievementEntity(achievement.name, now))
+        val item = achievement.rewardItemId?.let { ItemCatalog.byId(it) }?.takeIf { prize ->
+            inventoryDao.insertIfMissing(
+                InventoryItemEntity(itemId = prize.id, acquiredAtMillis = now, source = ItemSource.ACHIEVEMENT)
+            ) != -1L
+        }
+        return AchievementUnlock(achievement, item)
     }
 
     /** Debug tool: adds XP to an attribute without completing a mission, and grants any items now due. */

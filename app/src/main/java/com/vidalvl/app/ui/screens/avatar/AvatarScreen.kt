@@ -44,6 +44,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.vidalvl.app.R
+import com.vidalvl.app.domain.model.AchievementRules
 import com.vidalvl.app.domain.model.AvatarConfig
 import com.vidalvl.app.domain.model.CatalogItem
 import com.vidalvl.app.domain.model.ItemCatalog
@@ -61,6 +62,7 @@ import com.vidalvl.app.ui.theme.VidalvlTheme
 import com.vidalvl.app.ui.theme.forAttribute
 import com.vidalvl.app.ui.theme.iconRes
 import com.vidalvl.app.ui.theme.label
+import com.vidalvl.app.ui.theme.titleRes
 
 // Slots shown as inventory tabs.
 private val InventorySlots = listOf(ItemSlot.HAT, ItemSlot.GLASSES, ItemSlot.CLOAK, ItemSlot.OUTFIT)
@@ -350,7 +352,10 @@ private fun requirementText(item: CatalogItem): String {
     val base = when (val unlock = item.unlock) {
         is ItemUnlock.TotalLevel -> stringResource(R.string.item_req_level, unlock.level)
         is ItemUnlock.Weekly -> stringResource(R.string.item_req_weekly, item.attribute.label())
-        ItemUnlock.RewardMission -> stringResource(R.string.item_req_special)
+        // Special items are the prizes of achievements: say which one.
+        ItemUnlock.RewardMission -> AchievementRules.givingItem(item.id)
+            ?.let { stringResource(R.string.item_req_achievement, stringResource(it.titleRes())) }
+            ?: stringResource(R.string.item_req_special)
     }
     return if (item.requiredAttributeLevel > 1) {
         base + " · " + stringResource(R.string.item_req_attribute, item.attribute.label(), item.requiredAttributeLevel)

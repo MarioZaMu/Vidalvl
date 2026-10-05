@@ -149,6 +149,13 @@ private fun DebugTools(viewModel: MissionsViewModel = viewModel()) {
             }
         }
         SecondaryButton(
+            text = "Desbloquear todos los logros",
+            onClick = {
+                viewModel.debugUnlockAllAchievements { count -> lastResult = "Logros nuevos: $count" }
+            },
+            modifier = Modifier.fillMaxWidth()
+        )
+        SecondaryButton(
             text = "Dar todos los ítems",
             onClick = { viewModel.debugGrantAllItems { granted -> lastResult = "Ítems nuevos: $granted" } },
             modifier = Modifier.fillMaxWidth()

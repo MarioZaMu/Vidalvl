@@ -92,6 +92,13 @@ data class PlayerGoalsEntity(
     }
 }
 
+/** Achievements already unlocked ([id] is the enum name). They are never removed. */
+@Entity(tableName = "achievements")
+data class AchievementEntity(
+    @PrimaryKey val id: String,
+    val unlockedAtMillis: Long
+)
+
 /** Items the user owns. Item ids come from the Kotlin catalog; each one can be owned once. */
 @Entity(
     tableName = "inventory",

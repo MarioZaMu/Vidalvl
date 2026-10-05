@@ -34,6 +34,10 @@ interface MissionDao {
     @Query("SELECT title FROM missions WHERE isActive = 1")
     suspend fun activeTitles(): List<String>
 
+    /** Daily missions that count for a "perfect day": the default and the user's own, not the optional suggested ones. */
+    @Query("SELECT id FROM missions WHERE isActive = 1 AND type = 'DAILY' AND generatedFor IS NULL")
+    suspend fun regularDailyIds(): List<Long>
+
     /** Hides suggested missions whose day (daily) or week (weekly) is over. */
     @Query(
         "UPDATE missions SET isActive = 0 WHERE isActive = 1 AND generatedFor IS NOT NULL AND " +
@@ -67,6 +71,21 @@ interface CompletionDao {
 
     @Query("SELECT DISTINCT dayEpoch FROM mission_completions")
     suspend fun allDays(): List<Long>
+
+    @Query("SELECT COUNT(*) FROM mission_completions")
+    suspend fun count(): Int
+
+    @Query(
+        "SELECT COUNT(*) FROM mission_completions c JOIN missions m ON m.id = c.missionId " +
+                "WHERE m.type = 'WEEKLY'"
+    )
+    suspend fun weeklyCount(): Int
+
+    @Query("SELECT MAX(dayEpoch) FROM mission_completions WHERE dayEpoch < :day")
+    suspend fun latestDayBefore(day: Long): Long?
+
+    @Query("SELECT DISTINCT missionId FROM mission_completions WHERE dayEpoch = :day")
+    suspend fun missionIdsOn(day: Long): List<Long>
 
     @Query(
         "SELECT DISTINCT m.title FROM mission_completions c JOIN missions m ON m.id = c.missionId " +
@@ -103,6 +122,18 @@ interface AvatarDao {
 }
 
 @Dao
+interface AchievementDao {
+    @Query("SELECT * FROM achievements")
+    fun observeAll(): Flow<List<AchievementEntity>>
+
+    @Query("SELECT id FROM achievements")
+    suspend fun unlockedIds(): List<String>
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertIfMissing(achievement: AchievementEntity): Long
+}
+
+@Dao
 interface GoalsDao {
     @Query("SELECT * FROM player_goals WHERE id = 1")
     fun observe(): Flow<PlayerGoalsEntity?>
@@ -121,6 +152,9 @@ interface InventoryDao {
 
     @Query("SELECT itemId FROM inventory")
     suspend fun ownedIds(): List<String>
+
+    @Query("SELECT COUNT(*) FROM inventory")
+    suspend fun count(): Int
 
     @Query("SELECT * FROM inventory WHERE source = :source AND acquiredAtMillis >= :fromMillis AND acquiredAtMillis < :toMillis")
     suspend fun getBySourceBetween(source: ItemSource, fromMillis: Long, toMillis: Long): List<InventoryItemEntity>

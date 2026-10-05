@@ -8,6 +8,7 @@ import com.vidalvl.app.data.local.GameRepository
 import com.vidalvl.app.data.local.MissionCompletionEntity
 import com.vidalvl.app.data.local.MissionEntity
 import com.vidalvl.app.data.local.VidalvlDatabase
+import com.vidalvl.app.domain.model.AchievementUnlock
 import com.vidalvl.app.domain.model.Attribute
 import com.vidalvl.app.domain.model.AvatarConfig
 import com.vidalvl.app.domain.model.CatalogItem
@@ -132,8 +133,9 @@ class MissionsViewModel(application: Application) : AndroidViewModel(application
             if (item.completed) {
                 repository.undoMission(item.mission)
             } else {
-                val earned = repository.completeMission(item.mission)
-                if (earned.isNotEmpty()) _newItems.value = earned
+                val result = repository.completeMission(item.mission)
+                if (result.items.isNotEmpty()) _newItems.value = result.items
+                if (result.achievements.isNotEmpty()) _newAchievements.value = result.achievements
             }
         }
     }
@@ -236,6 +238,28 @@ class MissionsViewModel(application: Application) : AndroidViewModel(application
 
     fun deleteMission(mission: MissionEntity) {
         viewModelScope.launch { repository.deleteMission(mission.id) }
+    }
+
+    private val _newAchievements = MutableStateFlow<List<AchievementUnlock>>(emptyList())
+
+    /** Achievements just unlocked and not yet acknowledged by the user. */
+    val newAchievements: StateFlow<List<AchievementUnlock>> = _newAchievements
+
+    fun dismissNewAchievements() {
+        _newAchievements.value = emptyList()
+    }
+
+    /** Unlocks what the history already earns. Safe to call often; reports only what is new. */
+    fun refreshAchievements() {
+        viewModelScope.launch {
+            val unlocked = repository.refreshAchievements()
+            if (unlocked.isNotEmpty()) _newAchievements.value = _newAchievements.value + unlocked
+        }
+    }
+
+    /** Debug tool, see ProfileScreen. */
+    fun debugUnlockAllAchievements(onDone: (Int) -> Unit) {
+        viewModelScope.launch { onDone(repository.debugUnlockAllAchievements().size) }
     }
 
     fun dismissNewItems() {

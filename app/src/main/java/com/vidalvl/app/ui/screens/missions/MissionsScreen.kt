@@ -21,6 +21,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -48,6 +50,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.heading
@@ -57,6 +60,7 @@ import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.vidalvl.app.R
 import com.vidalvl.app.data.local.MissionEntity
+import com.vidalvl.app.domain.model.AchievementUnlock
 import com.vidalvl.app.domain.model.CatalogItem
 import com.vidalvl.app.domain.model.ItemCatalog
 import com.vidalvl.app.domain.model.MissionType
@@ -69,9 +73,11 @@ import com.vidalvl.app.ui.components.MotivationBanner
 import com.vidalvl.app.ui.components.PlayerHeader
 import com.vidalvl.app.ui.theme.VidalvlTheme
 import com.vidalvl.app.ui.theme.forAttribute
+import com.vidalvl.app.ui.theme.descriptionRes
 import com.vidalvl.app.ui.theme.iconRes
 import com.vidalvl.app.ui.theme.label
 import com.vidalvl.app.ui.theme.labelRes
+import com.vidalvl.app.ui.theme.titleRes
 import kotlinx.coroutines.delay
 import java.time.LocalDate
 
@@ -91,11 +97,15 @@ fun MissionsScreen(viewModel: MissionsViewModel = viewModel()) {
     // Suggested missions get their own section; default and user missions stay under "Active".
     val (suggested, active) = activeAll.partition { it.mission.generatedFor != null }
 
+    // The day's ring, the motivation line and the "perfect day" achievement count the default and the user's
+    // own daily missions. Suggested ones are a bonus: they never make a day look unfinished.
+    val regularDaily = state.daily.filter { it.mission.generatedFor == null }
+
     // The line under the header follows what is happening today, and changes as missions get done.
     val motivation = MotivationRules.pick(
         MotivationInput(
-            dailyDone = state.daily.count { it.completed },
-            dailyTotal = state.daily.size,
+            dailyDone = regularDaily.count { it.completed },
+            dailyTotal = regularDaily.size,
             streak = player.streak,
             daysSinceLast = player.daysSinceLast,
             goals = player.goals,
@@ -112,6 +122,7 @@ fun MissionsScreen(viewModel: MissionsViewModel = viewModel()) {
     // Coming back to the app (or a new day starting while it was closed) makes today's suggestions if missing.
     LifecycleResumeEffect(Unit) {
         viewModel.refreshSuggestions()
+        viewModel.refreshAchievements()
         onPauseOrDispose { }
     }
 
@@ -191,8 +202,8 @@ fun MissionsScreen(viewModel: MissionsViewModel = viewModel()) {
                     xpIntoLevel = state.overallLevel.xpIntoLevel,
                     xpForNextLevel = state.overallLevel.xpForNextLevel,
                     levelProgress = state.overallLevel.progress,
-                    dailyDone = state.daily.count { it.completed },
-                    dailyTotal = state.daily.size,
+                    dailyDone = regularDaily.count { it.completed },
+                    dailyTotal = regularDaily.size,
                     streak = player.streak,
                     totalXp = state.totalXp,
                     itemCount = player.itemCount,
@@ -278,8 +289,12 @@ fun MissionsScreen(viewModel: MissionsViewModel = viewModel()) {
     }
 
     val newItems by viewModel.newItems.collectAsState()
+    val newAchievements by viewModel.newAchievements.collectAsState()
+    // One dialog at a time: items first, then the achievements.
     if (newItems.isNotEmpty()) {
         NewItemsDialog(newItems, onDismiss = viewModel::dismissNewItems)
+    } else if (newAchievements.isNotEmpty()) {
+        AchievementsDialog(newAchievements, onDismiss = viewModel::dismissNewAchievements)
     }
 
     if (needsSuggestionChoice) {
@@ -406,6 +421,77 @@ private fun MissionActionsSheet(
             )
         }
     }
+}
+
+@Composable
+private fun AchievementsDialog(unlocks: List<AchievementUnlock>, onDismiss: () -> Unit) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        confirmButton = {
+            TextButton(onClick = onDismiss) { Text(stringResource(R.string.reward_ok)) }
+        },
+        title = {
+            Text(
+                stringResource(
+                    if (unlocks.size == 1) R.string.achievement_unlocked_title else R.string.achievement_unlocked_title_many
+                )
+            )
+        },
+        text = {
+            Column(
+                modifier = Modifier.verticalScroll(rememberScrollState()),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                unlocks.forEach { unlock ->
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .size(48.dp)
+                                .clip(RoundedCornerShape(12.dp))
+                                .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.2f)),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(
+                                painter = painterResource(R.drawable.ic_trophy),
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.primary,
+                                modifier = Modifier.size(28.dp)
+                            )
+                        }
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text(stringResource(unlock.achievement.titleRes()), style = MaterialTheme.typography.titleMedium)
+                            Text(
+                                stringResource(unlock.achievement.descriptionRes()),
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                    }
+                    unlock.item?.let { prize ->
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(12.dp)
+                        ) {
+                            ItemSprite(
+                                item = prize,
+                                modifier = Modifier
+                                    .size(56.dp)
+                                    .clip(RoundedCornerShape(10.dp))
+                                    .background(MaterialTheme.colorScheme.surfaceVariant)
+                            )
+                            Text(
+                                stringResource(R.string.achievement_prize, stringResource(prize.nameRes)),
+                                style = MaterialTheme.typography.bodyLarge
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    )
 }
 
 @Composable

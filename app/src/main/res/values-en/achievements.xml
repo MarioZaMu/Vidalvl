@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="achievement_first_step_title">First step</string>
+    <string name="achievement_first_step_desc">Complete your first mission.</string>
+    <string name="achievement_first_weekly_title">First weekly</string>
+    <string name="achievement_first_weekly_desc">Complete a weekly mission.</string>
+    <string name="achievement_perfect_day_title">Perfect day</string>
+    <string name="achievement_perfect_day_desc">Complete all of your daily missions in a day.</string>
+    <string name="achievement_streak_3_title">Three in a row</string>
+    <string name="achievement_streak_3_desc">Do a mission three days in a row.</string>
+    <string name="achievement_streak_7_title">A whole week</string>
+    <string name="achievement_streak_7_desc">Seven days in a row.</string>
+    <string name="achievement_streak_14_title">Fortnight</string>
+    <string name="achievement_streak_14_desc">Fourteen days in a row.</string>
+    <string name="achievement_streak_30_title">A month of consistency</string>
+    <string name="achievement_streak_30_desc">Thirty days in a row.</string>
+    <string name="achievement_total_25_title">25 missions</string>
+    <string name="achievement_total_25_desc">Complete 25 missions in total.</string>
+    <string name="achievement_total_100_title">100 missions</string>
+    <string name="achievement_total_100_desc">Complete 100 missions in total.</string>
+    <string name="achievement_level_5_title">Level 5</string>
+    <string name="achievement_level_5_desc">Reach total level 5.</string>
+    <string name="achievement_level_10_title">Level 10</string>
+    <string name="achievement_level_10_desc">Reach total level 10.</string>
+    <string name="achievement_balance_title">Balance</string>
+    <string name="achievement_balance_desc">Raise all four attributes to level 3.</string>
+    <string name="achievement_specialist_title">Specialist</string>
+    <string name="achievement_specialist_desc">Raise one attribute to level 5.</string>
+    <string name="achievement_come_back_title">Coming back counts</string>
+    <string name="achievement_come_back_desc">Complete a mission after 3 or more days without any.</string>
+    <string name="achievement_collector_title">Collector</string>
+    <string name="achievement_collector_desc">Get 10 items.</string>
+
+    <string name="achievement_unlocked_title">Achievement unlocked!</string>
+    <string name="achievement_unlocked_title_many">Achievements unlocked!</string>
+    <string name="achievement_prize">Prize: %1$s</string>
+    <string name="item_req_achievement">Achievement: %1$s</string>
+</resources>

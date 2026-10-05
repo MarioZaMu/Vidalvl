@@ -15,9 +15,10 @@ import androidx.sqlite.db.SupportSQLiteDatabase
         AvatarProfileEntity::class,
         InventoryItemEntity::class,
         EquippedEntity::class,
-        PlayerGoalsEntity::class
+        PlayerGoalsEntity::class,
+        AchievementEntity::class
     ],
-    version = 7,
+    version = 8,
     exportSchema = true
 )
 abstract class VidalvlDatabase : RoomDatabase() {
@@ -28,6 +29,7 @@ abstract class VidalvlDatabase : RoomDatabase() {
     abstract fun inventoryDao(): InventoryDao
     abstract fun equippedDao(): EquippedDao
     abstract fun goalsDao(): GoalsDao
+    abstract fun achievementDao(): AchievementDao
 
     companion object {
         @Volatile
@@ -97,13 +99,23 @@ abstract class VidalvlDatabase : RoomDatabase() {
             }
         }
 
+        /** v7 -> v8: unlocked achievements. Existing users unlock theirs from their history the next time the app opens. */
+        private val MIGRATION_7_8 = object : Migration(7, 8) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(
+                    "CREATE TABLE IF NOT EXISTS `achievements` (" +
+                            "`id` TEXT NOT NULL, `unlockedAtMillis` INTEGER NOT NULL, PRIMARY KEY(`id`))"
+                )
+            }
+        }
+
         fun getInstance(context: Context): VidalvlDatabase =
             instance ?: synchronized(this) {
                 instance ?: Room.databaseBuilder(
                     context.applicationContext,
                     VidalvlDatabase::class.java,
                     "vidalvl.db"
-                ).addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7).build().also { instance = it }
+                ).addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7, MIGRATION_7_8).build().also { instance = it }
             }
     }
 }

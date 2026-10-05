@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="achievement_first_step_title">Primer paso</string>
+    <string name="achievement_first_step_desc">Completa tu primera misión.</string>
+    <string name="achievement_first_weekly_title">Semanal estrenada</string>
+    <string name="achievement_first_weekly_desc">Completa una misión semanal.</string>
+    <string name="achievement_perfect_day_title">Día perfecto</string>
+    <string name="achievement_perfect_day_desc">Completa todas tus misiones diarias de un día.</string>
+    <string name="achievement_streak_3_title">Tres en fila</string>
+    <string name="achievement_streak_3_desc">Haz alguna misión tres días seguidos.</string>
+    <string name="achievement_streak_7_title">Una semana entera</string>
+    <string name="achievement_streak_7_desc">Siete días seguidos con constancia.</string>
+    <string name="achievement_streak_14_title">Quincena</string>
+    <string name="achievement_streak_14_desc">Catorce días seguidos.</string>
+    <string name="achievement_streak_30_title">Un mes de constancia</string>
+    <string name="achievement_streak_30_desc">Treinta días seguidos.</string>
+    <string name="achievement_total_25_title">25 misiones</string>
+    <string name="achievement_total_25_desc">Completa 25 misiones en total.</string>
+    <string name="achievement_total_100_title">100 misiones</string>
+    <string name="achievement_total_100_desc">Completa 100 misiones en total.</string>
+    <string name="achievement_level_5_title">Nivel 5</string>
+    <string name="achievement_level_5_desc">Llega al nivel total 5.</string>
+    <string name="achievement_level_10_title">Nivel 10</string>
+    <string name="achievement_level_10_desc">Llega al nivel total 10.</string>
+    <string name="achievement_balance_title">Equilibrio</string>
+    <string name="achievement_balance_desc">Lleva tus cuatro atributos al nivel 3.</string>
+    <string name="achievement_specialist_title">Especialista</string>
+    <string name="achievement_specialist_desc">Lleva un atributo al nivel 5.</string>
+    <string name="achievement_come_back_title">Volver también cuenta</string>
+    <string name="achievement_come_back_desc">Completa una misión después de 3 días o más sin hacer ninguna.</string>
+    <string name="achievement_collector_title">Coleccionista</string>
+    <string name="achievement_collector_desc">Consigue 10 ítems.</string>
+
+    <string name="achievement_unlocked_title">¡Logro desbloqueado!</string>
+    <string name="achievement_unlocked_title_many">¡Logros desbloqueados!</string>
+    <string name="achievement_prize">Premio: %1$s</string>
+    <string name="item_req_achievement">Logro: %1$s</string>
+</resources>

@@ -7,4 +7,4 @@ enum class ItemSlot { OUTFIT, HAT, GLASSES, CLOAK }
 enum class HairEffect { NONE, TRIMMED, HIDDEN }
 
 /** How an item reached the inventory. */
-enum class ItemSource { LEVEL, WEEKLY, REWARD_MISSION }
+enum class ItemSource { LEVEL, WEEKLY, REWARD_MISSION, ACHIEVEMENT }
