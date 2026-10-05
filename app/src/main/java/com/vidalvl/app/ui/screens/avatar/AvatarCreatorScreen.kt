@@ -273,11 +273,12 @@ private fun RowScope.ColorOption(
         modifier = Modifier
             .weight(1f)
             .aspectRatio(1f)
+            // Selectable first: the whole 48 dp cell is the touch target, not just the visible circle.
+            .selectable(selected = selected, role = Role.RadioButton, onClick = onClick)
+            .semantics { contentDescription = description }
             .padding(4.dp)
             .clip(CircleShape)
             .background(color)
             .border(BorderStroke(if (selected) 3.dp else 1.dp, borderColor), CircleShape)
-            .selectable(selected = selected, role = Role.RadioButton, onClick = onClick)
-            .semantics { contentDescription = description }
     )
 }

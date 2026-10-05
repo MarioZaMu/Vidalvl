@@ -22,6 +22,8 @@ import com.vidalvl.app.domain.model.StreakRules
 import com.vidalvl.app.domain.suggestions.SuggestionOutcome
 import com.vidalvl.app.domain.suggestions.SuggestionService
 import com.vidalvl.app.BuildConfig
+import com.vidalvl.app.R
+import com.vidalvl.app.data.local.DefaultMissionTitles
 import com.vidalvl.app.data.local.ResourceFallbackSuggestions
 import com.vidalvl.app.data.local.RoomSuggestionStore
 import com.vidalvl.app.data.local.SuggestionPrefs
@@ -120,7 +122,7 @@ class MissionsViewModel(application: Application) : AndroidViewModel(application
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), PlayerUi())
 
     init {
-        viewModelScope.launch { repository.seedIfEmpty() }
+        viewModelScope.launch { repository.seedIfEmpty(defaultTitles(application)) }
     }
 
     private val _newItems = MutableStateFlow<List<CatalogItem>>(emptyList())
@@ -281,3 +283,14 @@ private fun List<MissionEntity>.toItems(done: List<MissionCompletionEntity>): Li
     val doneIds = done.map { it.missionId }.toSet()
     return map { MissionItem(it, it.id in doneIds) }
 }
+private fun defaultTitles(app: Application) = DefaultMissionTitles(
+    makeBed = app.getString(R.string.default_mission_make_bed),
+    exercise = app.getString(R.string.default_mission_exercise),
+    read = app.getString(R.string.default_mission_read),
+    noScreens = app.getString(R.string.default_mission_no_screens),
+    writeSomeone = app.getString(R.string.default_mission_write_someone),
+    walk = app.getString(R.string.default_mission_walk),
+    readTwoHours = app.getString(R.string.default_mission_read_two_hours),
+    meetFriend = app.getString(R.string.default_mission_meet_friend),
+    tidyRoom = app.getString(R.string.default_mission_tidy_room)
+)

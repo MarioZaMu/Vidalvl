@@ -23,6 +23,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.StrokeCap
@@ -67,20 +68,10 @@ fun PlayerHeader(
             modifier = Modifier.padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(14.dp)
         ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                Box(
-                    modifier = Modifier
-                        .size(76.dp)
-                        .clip(RoundedCornerShape(14.dp))
-                        .background(MaterialTheme.colorScheme.surfaceVariant)
-                        .border(1.dp, MaterialTheme.colorScheme.outline, RoundedCornerShape(14.dp)),
-                    contentAlignment = Alignment.Center
-                ) { avatar() }
-
-                Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            // Name, level and XP bar. With a large system font there is no room for them between the avatar
+            // and the ring, so they move below and take the full width.
+            val info: @Composable (Modifier) -> Unit = { infoModifier ->
+                Column(modifier = infoModifier, verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -100,8 +91,27 @@ fun PlayerHeader(
                         color = VidalvlTheme.attributeColors.xp
                     )
                 }
+            }
 
-                DayRing(done = dailyDone, total = dailyTotal)
+            if (LocalDensity.current.fontScale >= LARGE_FONT_SCALE) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    AvatarFrame(avatar)
+                    DayRing(done = dailyDone, total = dailyTotal)
+                }
+                info(Modifier.fillMaxWidth())
+            } else {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    AvatarFrame(avatar)
+                    info(Modifier.weight(1f))
+                    DayRing(done = dailyDone, total = dailyTotal)
+                }
             }
 
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -111,6 +121,21 @@ fun PlayerHeader(
             }
         }
     }
+}
+
+/** From this system font scale up, layouts that are tight at normal size switch to a roomier arrangement. */
+private const val LARGE_FONT_SCALE = 1.3f
+
+@Composable
+private fun AvatarFrame(avatar: @Composable () -> Unit) {
+    Box(
+        modifier = Modifier
+            .size(76.dp)
+            .clip(RoundedCornerShape(14.dp))
+            .background(MaterialTheme.colorScheme.surfaceVariant)
+            .border(1.dp, MaterialTheme.colorScheme.outline, RoundedCornerShape(14.dp)),
+        contentAlignment = Alignment.Center
+    ) { avatar() }
 }
 
 @Composable

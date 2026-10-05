@@ -48,5 +48,5 @@ Titles in Cinzel (bundled, OFL, third_party/fonts); body in the system font. Dar
 ContrastTest enforces 4.5:1 for text in both modes: change a color, run the tests.
 
 ## Progress
-Phases 5A-9A are done and approved; each approved phase is committed right away (English message, Co-Authored-By line).
-Pending: 9B (hardcoded strings in the bottom bar and Profile, accessibility pass), 9C (usability test kit). The app icon is done by the user.
+Phases 5A-9B are done and approved; each approved phase is committed right away (English message, Co-Authored-By line).
+Pending: 9C (usability test kit). The app icon is done by the user.

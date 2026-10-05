@@ -7,7 +7,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -25,6 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 /** Labeled progress bar. Used for the 4 attributes and for XP. */
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun StatBar(
     label: String,
@@ -40,7 +42,8 @@ fun StatBar(
     )
 
     Column(modifier = modifier.fillMaxWidth()) {
-        Row(
+        // A flow row: with a large font the value drops to its own line instead of being squeezed against the label.
+        FlowRow(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {

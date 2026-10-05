@@ -107,9 +107,9 @@ class GameRepository(private val db: VidalvlDatabase) {
 
     suspend fun deleteMission(id: Long) = missionDao.deactivate(id)
 
-    suspend fun seedIfEmpty() {
+    suspend fun seedIfEmpty(titles: DefaultMissionTitles) {
         attributeDao.insertAllIfMissing(Attribute.entries.map { AttributeStateEntity(it) })
-        if (missionDao.count() == 0) missionDao.insertAll(defaultMissions())
+        if (missionDao.count() == 0) missionDao.insertAll(defaultMissions(titles))
     }
 
     /** Completes the mission for the current period and returns the items earned by it (usually none). */
@@ -307,24 +307,36 @@ class GameRepository(private val db: VidalvlDatabase) {
             }
         }
 
-    private fun defaultMissions() = listOf(
-        MissionEntity(title = "Tender la cama", attribute = Attribute.DISCIPLINE,
+    private fun defaultMissions(t: DefaultMissionTitles) = listOf(
+        MissionEntity(title = t.makeBed, attribute = Attribute.DISCIPLINE,
             type = MissionType.DAILY, xpReward = GameRules.missionXp(MissionType.DAILY), requiresPhoto = true),
-        MissionEntity(title = "15 minutos de ejercicio", attribute = Attribute.BODY,
+        MissionEntity(title = t.exercise, attribute = Attribute.BODY,
             type = MissionType.DAILY, xpReward = GameRules.missionXp(MissionType.DAILY)),
-        MissionEntity(title = "Leer 30 minutos", attribute = Attribute.MIND,
+        MissionEntity(title = t.read, attribute = Attribute.MIND,
             type = MissionType.DAILY, xpReward = GameRules.missionXp(MissionType.DAILY)),
-        MissionEntity(title = "Una hora sin pantallas", attribute = Attribute.MIND,
+        MissionEntity(title = t.noScreens, attribute = Attribute.MIND,
             type = MissionType.DAILY, xpReward = GameRules.missionXp(MissionType.DAILY)),
-        MissionEntity(title = "Escribirle a alguien que quieres", attribute = Attribute.SOCIAL,
+        MissionEntity(title = t.writeSomeone, attribute = Attribute.SOCIAL,
             type = MissionType.DAILY, xpReward = GameRules.missionXp(MissionType.DAILY)),
-        MissionEntity(title = "Salir a caminar 3 veces", attribute = Attribute.BODY,
+        MissionEntity(title = t.walk, attribute = Attribute.BODY,
             type = MissionType.WEEKLY, xpReward = GameRules.missionXp(MissionType.WEEKLY)),
-        MissionEntity(title = "Leer 2 horas en total", attribute = Attribute.MIND,
+        MissionEntity(title = t.readTwoHours, attribute = Attribute.MIND,
             type = MissionType.WEEKLY, xpReward = GameRules.missionXp(MissionType.WEEKLY)),
-        MissionEntity(title = "Quedar con un amigo o familiar", attribute = Attribute.SOCIAL,
+        MissionEntity(title = t.meetFriend, attribute = Attribute.SOCIAL,
             type = MissionType.WEEKLY, xpReward = GameRules.missionXp(MissionType.WEEKLY)),
-        MissionEntity(title = "Ordenar tu cuarto a fondo", attribute = Attribute.DISCIPLINE,
+        MissionEntity(title = t.tidyRoom, attribute = Attribute.DISCIPLINE,
             type = MissionType.WEEKLY, xpReward = GameRules.missionXp(MissionType.WEEKLY))
     )
 }
+/** Titles of the missions every new player starts with, already in the phone's language. */
+data class DefaultMissionTitles(
+    val makeBed: String,
+    val exercise: String,
+    val read: String,
+    val noScreens: String,
+    val writeSomeone: String,
+    val walk: String,
+    val readTwoHours: String,
+    val meetFriend: String,
+    val tidyRoom: String
+)

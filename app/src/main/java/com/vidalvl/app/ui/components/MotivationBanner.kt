@@ -23,8 +23,8 @@ import com.vidalvl.app.R
 import com.vidalvl.app.domain.model.Goal
 import com.vidalvl.app.domain.model.MotivationKind
 import com.vidalvl.app.domain.model.MotivationMessage
+import com.vidalvl.app.ui.theme.currentLocale
 import com.vidalvl.app.ui.theme.label
-import java.util.Locale
 
 /** One encouraging line, with an accent bar on the left. */
 @Composable
@@ -57,7 +57,7 @@ fun MotivationBanner(message: MotivationMessage, modifier: Modifier = Modifier) 
 private fun motivationText(message: MotivationMessage): String {
     val options = stringArrayResource(arrayFor(message))
     val template = options[message.variant % options.size]
-    val locale = Locale.getDefault()
+    val locale = currentLocale()
     return when (message.kind) {
         MotivationKind.STREAK -> String.format(locale, template, message.first)
         MotivationKind.PROGRESS -> String.format(locale, template, message.first, message.second)

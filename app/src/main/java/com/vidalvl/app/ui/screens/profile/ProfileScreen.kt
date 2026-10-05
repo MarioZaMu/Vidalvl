@@ -22,6 +22,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -51,13 +52,9 @@ fun ProfileScreen(
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        Text("Perfil", style = MaterialTheme.typography.headlineLarge)
-        Text("Apariencia", style = MaterialTheme.typography.titleMedium)
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            ThemeOption("Sistema", ThemeMode.SYSTEM, themeMode, onThemeModeChange)
-            ThemeOption("Claro", ThemeMode.LIGHT, themeMode, onThemeModeChange)
-            ThemeOption("Oscuro", ThemeMode.DARK, themeMode, onThemeModeChange)
-        }
+        Text(stringResource(R.string.profile_title), style = MaterialTheme.typography.headlineLarge)
+        Text(stringResource(R.string.profile_appearance), style = MaterialTheme.typography.titleMedium)
+        ThemeOptions(themeMode, onThemeModeChange)
         GoalsSection()
         AiSuggestionsSwitch()
         val context = LocalContext.current
@@ -166,17 +163,33 @@ private fun DebugTools(viewModel: MissionsViewModel = viewModel()) {
     }
 }
 
+/** Three buttons side by side; stacked when the system font is so large that the words would break. */
 @Composable
-private fun RowScope.ThemeOption(
-    label: String,
-    mode: ThemeMode,
-    selectedMode: ThemeMode,
-    onSelect: (ThemeMode) -> Unit
-) {
-    val modifier = Modifier.weight(1f)
-    if (mode == selectedMode) {
-        PrimaryButton(label, onClick = { onSelect(mode) }, modifier = modifier)
+private fun ThemeOptions(selectedMode: ThemeMode, onSelect: (ThemeMode) -> Unit) {
+    val options = listOf(
+        ThemeMode.SYSTEM to stringResource(R.string.theme_system),
+        ThemeMode.LIGHT to stringResource(R.string.theme_light),
+        ThemeMode.DARK to stringResource(R.string.theme_dark)
+    )
+    if (LocalDensity.current.fontScale >= STACK_FONT_SCALE) {
+        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            options.forEach { (mode, label) ->
+                ThemeButton(label, mode == selectedMode, { onSelect(mode) }, Modifier.fillMaxWidth())
+            }
+        }
     } else {
-        SecondaryButton(label, onClick = { onSelect(mode) }, modifier = modifier)
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            options.forEach { (mode, label) ->
+                ThemeButton(label, mode == selectedMode, { onSelect(mode) }, Modifier.weight(1f))
+            }
+        }
     }
+}
+
+private const val STACK_FONT_SCALE = 1.5f
+
+@Composable
+private fun ThemeButton(label: String, selected: Boolean, onClick: () -> Unit, modifier: Modifier) {
+    if (selected) PrimaryButton(label, onClick = onClick, modifier = modifier)
+    else SecondaryButton(label, onClick = onClick, modifier = modifier)
 }

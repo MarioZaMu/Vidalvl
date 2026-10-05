@@ -55,6 +55,7 @@ import com.vidalvl.app.ui.theme.VidalvlTheme
 import com.vidalvl.app.ui.theme.descriptionRes
 import com.vidalvl.app.ui.theme.forAttribute
 import com.vidalvl.app.ui.theme.iconRes
+import com.vidalvl.app.ui.theme.currentLocale
 import com.vidalvl.app.ui.theme.label
 import com.vidalvl.app.ui.theme.titleRes
 import java.time.Instant
@@ -147,7 +148,7 @@ private fun WeekCard(week: WeekSummary) {
 
 @Composable
 private fun DayDot(cell: DayCell) {
-    val locale = Locale.getDefault()
+    val locale = currentLocale()
     val weekday = LocalDate.ofEpochDay(cell.epochDay).dayOfWeek
     val initial = weekday.getDisplayName(TextStyle.NARROW, locale)
     val fullName = weekday.getDisplayName(TextStyle.FULL, locale)
@@ -197,7 +198,7 @@ private fun EmptyMessage(text: String) {
 
 @Composable
 private fun DayHeader(group: DayGroup) {
-    val locale = Locale.getDefault()
+    val locale = currentLocale()
     val today = LocalDate.now().toEpochDay()
     val label = when (group.epochDay) {
         today -> stringResource(R.string.reflection_today)
@@ -218,7 +219,7 @@ private fun DayHeader(group: DayGroup) {
 private fun EventRow(event: TimelineEvent, zone: ZoneId) {
     val colors = VidalvlTheme.attributeColors
     val time = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
-        .withLocale(Locale.getDefault()).withZone(zone)
+        .withLocale(currentLocale()).withZone(zone)
         .format(Instant.ofEpochMilli(event.millis))
 
     Row(
@@ -307,7 +308,7 @@ private fun EventText(title: String, subtitle: String?, modifier: Modifier = Mod
 private fun AchievementCard(row: AchievementRowUi, zone: ZoneId) {
     val colors = MaterialTheme.colorScheme
     val prize = row.achievement.rewardItemId?.let { ItemCatalog.byId(it) }
-    val locale = Locale.getDefault()
+    val locale = currentLocale()
 
     Surface(
         modifier = Modifier.fillMaxWidth(),

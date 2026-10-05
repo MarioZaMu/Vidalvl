@@ -108,7 +108,6 @@
     <string name="attribute_mind">Mind</string>
     <string name="attribute_discipline">Discipline</string>
     <string name="attribute_social">Social</string>
-    <string name="attribute_level_short">Lv %1$d</string>
 
     <!-- Missions screen (phase 4B) -->
     <string name="missions_title">Missions</string>
@@ -227,4 +226,26 @@
     <string name="suggestions_consent_local">App ideas only</string>
     <string name="profile_ai_title">AI tasks</string>
     <string name="profile_ai_hint">Gemini suggests your tasks every day. Your goals and mission titles are sent, never photos. When off, you get ideas saved in the app.</string>
+
+    <!-- Missions every new player starts with (phase 9B) -->
+    <string name="default_mission_make_bed">Make the bed</string>
+    <string name="default_mission_exercise">15 minutes of exercise</string>
+    <string name="default_mission_read">Read for 30 minutes</string>
+    <string name="default_mission_no_screens">One hour without screens</string>
+    <string name="default_mission_write_someone">Write to someone you love</string>
+    <string name="default_mission_walk">Go for a walk 3 times</string>
+    <string name="default_mission_read_two_hours">Read 2 hours in total</string>
+    <string name="default_mission_meet_friend">Meet a friend or family member</string>
+    <string name="default_mission_tidy_room">Deep-clean your room</string>
+
+    <!-- Navigation and profile (phase 9B) -->
+    <string name="nav_missions">Missions</string>
+    <string name="nav_avatar">Avatar</string>
+    <string name="nav_reflection">Reflection</string>
+    <string name="nav_profile">Profile</string>
+    <string name="profile_title">Profile</string>
+    <string name="profile_appearance">Appearance</string>
+    <string name="theme_system">System</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
 </resources>

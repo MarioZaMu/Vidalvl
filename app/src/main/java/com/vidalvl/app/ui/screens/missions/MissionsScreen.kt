@@ -49,10 +49,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
@@ -90,7 +91,7 @@ fun MissionsScreen(viewModel: MissionsViewModel = viewModel()) {
     val player by viewModel.player.collectAsState()
     val consentGiven by viewModel.consentGiven.collectAsState()
     val colors = VidalvlTheme.attributeColors
-    val context = LocalContext.current
+    val resources = LocalResources.current
     var selectedTab by rememberSaveable { mutableIntStateOf(0) }
     val missions = if (selectedTab == 0) state.daily else state.weekly
     val (activeAll, completed) = missions.partition { !it.completed }
@@ -148,7 +149,7 @@ fun MissionsScreen(viewModel: MissionsViewModel = viewModel()) {
             xpPop = XpPop(
                 token = (xpPop?.token ?: 0) + 1,
                 xp = entry.mission.xpReward,
-                label = context.getString(entry.mission.attribute.labelRes())
+                label = resources.getString(entry.mission.attribute.labelRes())
             )
         }
     }
@@ -209,12 +210,15 @@ fun MissionsScreen(viewModel: MissionsViewModel = viewModel()) {
                     itemCount = player.itemCount,
                     itemTotal = ItemCatalog.items.size
                 ) {
+                    val avatarDescription = stringResource(R.string.avatar_content_description)
                     AvatarView(
                         config = player.config,
                         equipment = player.equipped,
                         animated = false,
                         headCrop = true,
-                        modifier = Modifier.fillMaxSize()
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .semantics { contentDescription = avatarDescription }
                     )
                 }
             }

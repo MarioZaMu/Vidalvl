@@ -7,9 +7,13 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.Density
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -20,6 +24,8 @@ import com.vidalvl.app.ui.screens.missions.MissionsScreen
 import com.vidalvl.app.ui.screens.profile.ProfileScreen
 import com.vidalvl.app.ui.screens.reflection.ReflectionScreen
 import com.vidalvl.app.ui.theme.ThemeMode
+
+private const val NAV_MAX_FONT_SCALE = 1.3f
 
 @Composable
 fun AppNavigation(
@@ -35,22 +41,29 @@ fun AppNavigation(
         // Transparent so the night sky (dark theme) shows through behind the screens.
         containerColor = Color.Transparent,
         bottomBar = {
-            NavigationBar {
-                Screen.bottomBarItems.forEach { screen ->
-                    NavigationBarItem(
-                        selected = currentRoute == screen.route,
-                        onClick = {
-                            navController.navigate(screen.route) {
-                                popUpTo(navController.graph.findStartDestination().id) {
-                                    saveState = true
+            // Four fixed-width tabs cannot hold labels at 200% font: they would break mid-word ("Misione/s").
+            // Their text stops growing at 1.3x; everything else on screen keeps following the system setting.
+            val density = LocalDensity.current
+            CompositionLocalProvider(
+                LocalDensity provides Density(density.density, fontScale = minOf(density.fontScale, NAV_MAX_FONT_SCALE))
+            ) {
+                NavigationBar {
+                    Screen.bottomBarItems.forEach { screen ->
+                        NavigationBarItem(
+                            selected = currentRoute == screen.route,
+                            onClick = {
+                                navController.navigate(screen.route) {
+                                    popUpTo(navController.graph.findStartDestination().id) {
+                                        saveState = true
+                                    }
+                                    launchSingleTop = true
+                                    restoreState = true
                                 }
-                                launchSingleTop = true
-                                restoreState = true
-                            }
-                        },
-                        icon = { Icon(screen.icon, contentDescription = screen.label) },
-                        label = { Text(screen.label) }
-                    )
+                            },
+                            icon = { Icon(screen.icon, contentDescription = null) },
+                            label = { Text(stringResource(screen.labelRes), maxLines = 1) }
+                        )
+                    }
                 }
             }
         }
