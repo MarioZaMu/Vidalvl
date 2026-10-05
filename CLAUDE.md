@@ -48,5 +48,5 @@ Titles in Cinzel (bundled, OFL, third_party/fonts); body in the system font. Dar
 ContrastTest enforces 4.5:1 for text in both modes: change a color, run the tests.
 
 ## Progress
-Phases 5A-9C are done and approved; each approved phase is committed right away (English message, Co-Authored-By line).
+Phases 5A-9C are done and approved; each approved phase is committed right away (English message, never a Co-Authored-By trailer: the user does not want Claude listed as a contributor).
 Pending: the app icon (the user makes it). cloak_001 stays out of the catalog on purpose (its front sprite was never made). Usability test kit: docs/pruebas-usabilidad-vidalvl.docx.
