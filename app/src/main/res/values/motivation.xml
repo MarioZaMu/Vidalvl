@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Encouraging messages for the missions screen. Tone: warm, never guilt. Blanks: %1$d / %2$d are numbers, %1$s an attribute. -->
+<resources>
+    <string-array name="motivation_all_done">
+        <item>¡Todas las diarias de hoy listas! Descansa tranquilo.</item>
+        <item>Día completo. Eso es constancia de verdad.</item>
+        <item>Lo lograste hoy. Mañana seguimos.</item>
+    </string-array>
+    <string-array name="motivation_welcome_back">
+        <item>¡Qué bueno verte! Empezar de nuevo también cuenta.</item>
+        <item>Aquí no se pierde nada. Retoma con una tarea pequeña.</item>
+        <item>Cada regreso suma. ¿Empezamos con algo fácil?</item>
+    </string-array>
+    <string-array name="motivation_streak">
+        <item>¡%1$d días seguidos! Tu constancia se nota.</item>
+        <item>%1$d días en racha. Sigue a tu ritmo.</item>
+        <item>Racha de %1$d días. ¡Qué buen hábito!</item>
+    </string-array>
+    <string-array name="motivation_progress">
+        <item>Llevas %1$d de %2$d hoy. ¡Buen ritmo!</item>
+        <item>%1$d de %2$d listas. Un paso más.</item>
+        <item>Vas %1$d de %2$d. Sin prisa, pero sin pausa.</item>
+    </string-array>
+    <string-array name="motivation_neglected">
+        <item>Hoy tu %1$s espera un poco de atención. Con una tarea pequeña basta.</item>
+        <item>Tu %1$s te extraña. Una tarea corta la reactiva.</item>
+    </string-array>
+    <string-array name="motivation_generic">
+        <item>Cada tarea cuenta. Empieza cuando quieras.</item>
+        <item>Un paso pequeño hoy ya es avanzar.</item>
+    </string-array>
+
+    <string-array name="motivation_start_fit">
+        <item>Tu cuerpo te lo agradecerá. Empieza con algo pequeño.</item>
+        <item>Moverte hoy, aunque sea poco, suma.</item>
+    </string-array>
+    <string-array name="motivation_start_learn">
+        <item>Aprender un poco cada día vale más que mucho un solo día.</item>
+        <item>Tu mente crece con cada tarea.</item>
+    </string-array>
+    <string-array name="motivation_start_discipline">
+        <item>La disciplina se construye con pasos pequeños.</item>
+        <item>Haz una cosa a la vez; lo demás se acomoda.</item>
+    </string-array>
+    <string-array name="motivation_start_relationships">
+        <item>Un mensaje amable hoy puede alegrar a alguien.</item>
+        <item>Cuidar tus vínculos también es un hábito.</item>
+    </string-array>
+    <string-array name="motivation_start_sleep">
+        <item>Dormir bien empieza con las decisiones de hoy.</item>
+        <item>Un buen descanso se prepara durante el día.</item>
+    </string-array>
+    <string-array name="motivation_start_less_phone">
+        <item>Cada rato lejos de la pantalla es ganancia.</item>
+        <item>Hoy puedes elegir mirar menos el celular.</item>
+    </string-array>
+    <string-array name="motivation_start_eat_well">
+        <item>Una buena elección a la vez.</item>
+        <item>Comer bien también es cuidarte.</item>
+    </string-array>
+    <string-array name="motivation_start_stress">
+        <item>Respira. Hoy basta con hacer una cosa.</item>
+        <item>Cuidar tu calma es una tarea importante.</item>
+    </string-array>
+</resources>

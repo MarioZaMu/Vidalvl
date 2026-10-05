@@ -60,9 +60,12 @@ import com.vidalvl.app.data.local.MissionEntity
 import com.vidalvl.app.domain.model.CatalogItem
 import com.vidalvl.app.domain.model.ItemCatalog
 import com.vidalvl.app.domain.model.MissionType
+import com.vidalvl.app.domain.model.MotivationInput
+import com.vidalvl.app.domain.model.MotivationRules
 import com.vidalvl.app.ui.avatar.AvatarView
 import com.vidalvl.app.ui.avatar.ItemSprite
 import com.vidalvl.app.ui.components.MissionCard
+import com.vidalvl.app.ui.components.MotivationBanner
 import com.vidalvl.app.ui.components.PlayerHeader
 import com.vidalvl.app.ui.theme.VidalvlTheme
 import com.vidalvl.app.ui.theme.forAttribute
@@ -70,6 +73,7 @@ import com.vidalvl.app.ui.theme.iconRes
 import com.vidalvl.app.ui.theme.label
 import com.vidalvl.app.ui.theme.labelRes
 import kotlinx.coroutines.delay
+import java.time.LocalDate
 
 /** The "+8 XP · Cuerpo" chip that floats up after completing a mission. */
 private data class XpPop(val token: Int, val xp: Int, val label: String)
@@ -86,6 +90,22 @@ fun MissionsScreen(viewModel: MissionsViewModel = viewModel()) {
     val (activeAll, completed) = missions.partition { !it.completed }
     // Suggested missions get their own section; default and user missions stay under "Active".
     val (suggested, active) = activeAll.partition { it.mission.generatedFor != null }
+
+    // The line under the header follows what is happening today, and changes as missions get done.
+    val motivation = MotivationRules.pick(
+        MotivationInput(
+            dailyDone = state.daily.count { it.completed },
+            dailyTotal = state.daily.size,
+            streak = player.streak,
+            daysSinceLast = player.daysSinceLast,
+            goals = player.goals,
+            neglected = MotivationRules.neglected(
+                glows = state.attributes.associate { it.attribute to it.glow },
+                goals = player.goals
+            ),
+            seed = LocalDate.now().toEpochDay()
+        )
+    )
 
     val generating by viewModel.generating.collectAsState()
     val needsSuggestionChoice by viewModel.needsSuggestionChoice.collectAsState()
@@ -187,6 +207,7 @@ fun MissionsScreen(viewModel: MissionsViewModel = viewModel()) {
                     )
                 }
             }
+            item(key = "motivation") { MotivationBanner(motivation) }
             item(key = "tabs") { MissionTabs(selectedTab) { selectedTab = it } }
 
             if (generating) {

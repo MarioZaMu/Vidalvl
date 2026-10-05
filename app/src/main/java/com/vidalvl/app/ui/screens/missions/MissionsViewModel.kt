@@ -12,6 +12,7 @@ import com.vidalvl.app.domain.model.Attribute
 import com.vidalvl.app.domain.model.AvatarConfig
 import com.vidalvl.app.domain.model.CatalogItem
 import com.vidalvl.app.domain.model.GameRules
+import com.vidalvl.app.domain.model.Goal
 import com.vidalvl.app.domain.model.ItemCatalog
 import com.vidalvl.app.domain.model.ItemSlot
 import com.vidalvl.app.domain.model.LevelInfo
@@ -57,7 +58,10 @@ data class PlayerUi(
     val config: AvatarConfig = AvatarConfig(),
     val equipped: Map<ItemSlot, CatalogItem> = emptyMap(),
     val streak: Int = 0,
-    val itemCount: Int = 0
+    val itemCount: Int = 0,
+    val goals: Set<Goal> = emptySet(),
+    /** Days since the last completed mission; null if there never was one. */
+    val daysSinceLast: Int? = null
 )
 
 class MissionsViewModel(application: Application) : AndroidViewModel(application) {
@@ -92,9 +96,13 @@ class MissionsViewModel(application: Application) : AndroidViewModel(application
         repository.observeAvatar(),
         repository.observeEquipped(),
         repository.observeInventory(),
-        repository.observeAllCompletions()
-    ) { avatar, equipped, inventory, completions ->
+        repository.observeAllCompletions(),
+        repository.observeGoals()
+    ) { avatar, equipped, inventory, completions, goals ->
+        val today = LocalDate.now().toEpochDay()
         PlayerUi(
+            goals = goals?.goals.orEmpty(),
+            daysSinceLast = completions.maxOfOrNull { it.dayEpoch }?.let { (today - it).toInt() },
             name = avatar?.name.orEmpty(),
             config = avatar?.let {
                 AvatarConfig(it.gender, it.skinTone, it.hairStyle, it.hairColor, it.eyeStyle, it.name)

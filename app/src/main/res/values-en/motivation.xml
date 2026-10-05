@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Encouraging messages for the missions screen. Tone: warm, never guilt. Blanks: %1$d / %2$d are numbers, %1$s an attribute. -->
+<resources>
+    <string-array name="motivation_all_done">
+        <item>All of today\'s daily missions are done! Rest easy.</item>
+        <item>A full day. That is real consistency.</item>
+        <item>You did it today. We continue tomorrow.</item>
+    </string-array>
+    <string-array name="motivation_welcome_back">
+        <item>Good to see you! Starting again counts too.</item>
+        <item>Nothing is lost here. Pick up with one small task.</item>
+        <item>Every return adds up. Shall we start with something easy?</item>
+    </string-array>
+    <string-array name="motivation_streak">
+        <item>%1$d days in a row! Your consistency shows.</item>
+        <item>%1$d-day streak. Keep your own pace.</item>
+        <item>A %1$d-day streak. What a good habit!</item>
+    </string-array>
+    <string-array name="motivation_progress">
+        <item>%1$d of %2$d done today. Nice pace!</item>
+        <item>%1$d of %2$d finished. One more step.</item>
+        <item>%1$d out of %2$d. No rush, no pause.</item>
+    </string-array>
+    <string-array name="motivation_neglected">
+        <item>Your %1$s is waiting for a little attention today. One small task is enough.</item>
+        <item>Your %1$s misses you. A short task wakes it up.</item>
+    </string-array>
+    <string-array name="motivation_generic">
+        <item>Every task counts. Start whenever you like.</item>
+        <item>A small step today is already progress.</item>
+    </string-array>
+
+    <string-array name="motivation_start_fit">
+        <item>Your body will thank you. Start with something small.</item>
+        <item>Moving today, even a little, adds up.</item>
+    </string-array>
+    <string-array name="motivation_start_learn">
+        <item>Learning a little every day beats a lot on a single day.</item>
+        <item>Your mind grows with every task.</item>
+    </string-array>
+    <string-array name="motivation_start_discipline">
+        <item>Discipline is built with small steps.</item>
+        <item>Do one thing at a time; the rest falls into place.</item>
+    </string-array>
+    <string-array name="motivation_start_relationships">
+        <item>A kind message today can brighten someone\'s day.</item>
+        <item>Caring for your relationships is a habit too.</item>
+    </string-array>
+    <string-array name="motivation_start_sleep">
+        <item>Sleeping well starts with today\'s choices.</item>
+        <item>A good rest is prepared during the day.</item>
+    </string-array>
+    <string-array name="motivation_start_less_phone">
+        <item>Every moment away from the screen is a win.</item>
+        <item>Today you can choose to look at your phone less.</item>
+    </string-array>
+    <string-array name="motivation_start_eat_well">
+        <item>One good choice at a time.</item>
+        <item>Eating well is also taking care of yourself.</item>
+    </string-array>
+    <string-array name="motivation_start_stress">
+        <item>Breathe. Today, doing one thing is enough.</item>
+        <item>Looking after your calm is an important task.</item>
+    </string-array>
+</resources>
