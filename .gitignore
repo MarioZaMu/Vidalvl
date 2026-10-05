@@ -13,3 +13,6 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Device chosen in Android Studio: it holds local paths, not project settings
+/.idea/deploymentTargetSelector.xml
