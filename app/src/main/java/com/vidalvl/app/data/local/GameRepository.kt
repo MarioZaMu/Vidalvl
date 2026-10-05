@@ -4,13 +4,16 @@ import androidx.room.withTransaction
 import com.vidalvl.app.domain.model.Attribute
 import com.vidalvl.app.domain.model.CatalogItem
 import com.vidalvl.app.domain.model.GameRules
+import com.vidalvl.app.domain.model.GoalRules
 import com.vidalvl.app.domain.model.ItemCatalog
 import com.vidalvl.app.domain.model.ItemSlot
 import com.vidalvl.app.domain.model.ItemSource
 import com.vidalvl.app.domain.model.MissionRules
 import com.vidalvl.app.domain.model.MissionType
+import com.vidalvl.app.domain.model.PlayerGoals
 import com.vidalvl.app.domain.model.RewardRules
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import java.time.LocalDate
 import java.time.ZoneId
 
@@ -21,6 +24,16 @@ class GameRepository(private val db: VidalvlDatabase) {
     private val avatarDao = db.avatarDao()
     private val inventoryDao = db.inventoryDao()
     private val equippedDao = db.equippedDao()
+    private val goalsDao = db.goalsDao()
+
+    /** Emits null until the user finishes the welcome screen. */
+    fun observeGoals(): Flow<PlayerGoals?> = goalsDao.observe().map { row ->
+        row?.let { PlayerGoals(GoalRules.decode(it.goals), it.dailyMinutes) }
+    }
+
+    suspend fun saveGoals(goals: PlayerGoals) = goalsDao.upsert(
+        PlayerGoalsEntity(goals = GoalRules.encode(goals.goals), dailyMinutes = goals.dailyMinutes)
+    )
 
     /** Emits null while the avatar has not been created yet. */
     fun observeAvatar(): Flow<AvatarProfileEntity?> = avatarDao.observe()

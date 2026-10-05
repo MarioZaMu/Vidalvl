@@ -74,6 +74,19 @@ data class AvatarProfileEntity(
     }
 }
 
+/** Answers of the welcome screen (single row, id = 1). No row means the user has not done it yet. */
+@Entity(tableName = "player_goals")
+data class PlayerGoalsEntity(
+    @PrimaryKey val id: Int = SINGLE_ID,
+    /** Comma-separated [com.vidalvl.app.domain.model.Goal] names. */
+    val goals: String,
+    val dailyMinutes: Int
+) {
+    companion object {
+        const val SINGLE_ID = 1
+    }
+}
+
 /** Items the user owns. Item ids come from the Kotlin catalog; each one can be owned once. */
 @Entity(
     tableName = "inventory",

@@ -12,18 +12,25 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.vidalvl.app.domain.model.Attribute
 import com.vidalvl.app.ui.components.PrimaryButton
 import com.vidalvl.app.ui.components.SecondaryButton
+import com.vidalvl.app.R
 import com.vidalvl.app.ui.screens.missions.MissionsViewModel
+import com.vidalvl.app.ui.screens.onboarding.GoalsEditorSheet
+import com.vidalvl.app.ui.screens.onboarding.GoalsState
+import com.vidalvl.app.ui.screens.onboarding.GoalsViewModel
+import com.vidalvl.app.ui.screens.onboarding.titleRes
 import com.vidalvl.app.ui.theme.ThemeMode
 import com.vidalvl.app.ui.theme.label
 
@@ -47,9 +54,45 @@ fun ProfileScreen(
             ThemeOption("Claro", ThemeMode.LIGHT, themeMode, onThemeModeChange)
             ThemeOption("Oscuro", ThemeMode.DARK, themeMode, onThemeModeChange)
         }
+        GoalsSection()
         val context = LocalContext.current
         val isDebugBuild = (context.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE) != 0
         if (isDebugBuild) DebugTools()
+    }
+}
+
+/** The goals chosen on the welcome screen, editable at any time. */
+@Composable
+private fun GoalsSection(viewModel: GoalsViewModel = viewModel()) {
+    val state by viewModel.state.collectAsState()
+    var editing by remember { mutableStateOf(false) }
+    val saved = (state as? GoalsState.Saved)?.goals
+
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Text(stringResource(R.string.profile_goals_title), style = MaterialTheme.typography.titleMedium)
+        if (saved != null) {
+            Text(
+                text = saved.goals.map { stringResource(it.titleRes()) }.joinToString(" · "),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
+        SecondaryButton(
+            text = stringResource(R.string.profile_goals_edit),
+            onClick = { editing = true },
+            modifier = Modifier.fillMaxWidth()
+        )
+    }
+
+    if (editing) {
+        GoalsEditorSheet(
+            initial = saved,
+            onDismiss = { editing = false },
+            onSave = {
+                viewModel.save(it)
+                editing = false
+            }
+        )
     }
 }
 

@@ -84,6 +84,15 @@ interface AvatarDao {
 }
 
 @Dao
+interface GoalsDao {
+    @Query("SELECT * FROM player_goals WHERE id = 1")
+    fun observe(): Flow<PlayerGoalsEntity?>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun upsert(goals: PlayerGoalsEntity)
+}
+
+@Dao
 interface InventoryDao {
     @Query("SELECT * FROM inventory ORDER BY acquiredAtMillis")
     fun observeAll(): Flow<List<InventoryItemEntity>>

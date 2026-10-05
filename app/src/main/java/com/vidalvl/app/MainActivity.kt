@@ -12,7 +12,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
-import com.vidalvl.app.navigation.AppNavigation
+import com.vidalvl.app.navigation.AppRoot
 import com.vidalvl.app.ui.theme.ThemeMode
 import com.vidalvl.app.ui.theme.ThemeStorage
 import com.vidalvl.app.ui.theme.VidalvlTheme
@@ -36,7 +36,7 @@ class MainActivity : ComponentActivity() {
             }
 
             VidalvlTheme(themeMode = themeMode) {
-                AppNavigation(
+                AppRoot(
                     themeMode = themeMode,
                     onThemeModeChange = { newMode ->
                         themeMode = newMode

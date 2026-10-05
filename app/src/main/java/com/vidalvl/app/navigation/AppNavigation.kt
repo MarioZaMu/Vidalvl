@@ -23,7 +23,8 @@ import com.vidalvl.app.ui.theme.ThemeMode
 @Composable
 fun AppNavigation(
     themeMode: ThemeMode,
-    onThemeModeChange: (ThemeMode) -> Unit
+    onThemeModeChange: (ThemeMode) -> Unit,
+    startOnAvatar: Boolean = false
 ) {
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
@@ -53,7 +54,8 @@ fun AppNavigation(
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = Screen.Missions.route,
+            // Right after the welcome screen the next step is creating the avatar.
+            startDestination = if (startOnAvatar) Screen.Avatar.route else Screen.Missions.route,
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screen.Missions.route) { MissionsScreen() }

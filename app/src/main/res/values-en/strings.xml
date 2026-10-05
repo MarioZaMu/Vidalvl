@@ -189,4 +189,31 @@
     <string name="photo_consent_text">To check whether you did the mission, the photo is sent to Gemini, Google\'s AI service. On the free tier, Google may use the content to improve its products. Avoid showing other people or private information. The photo isn\'t saved on your phone or in this app.</string>
     <string name="photo_consent_accept">Got it, continue</string>
     <string name="photo_consent_decline">Not now</string>
+
+    <!-- Welcome screen and goals (phase 7A) -->
+    <string name="goal_fit">Get fit</string>
+    <string name="goal_learn">Learn and study</string>
+    <string name="goal_discipline">Be more disciplined</string>
+    <string name="goal_relationships">Improve my relationships</string>
+    <string name="goal_sleep">Sleep better</string>
+    <string name="goal_less_phone">Use my phone less</string>
+    <string name="goal_eat_well">Eat healthier</string>
+    <string name="goal_stress">Reduce stress</string>
+    <string name="time_5">About 5 minutes</string>
+    <string name="time_15">About 15 minutes</string>
+    <string name="time_30">30 minutes or more</string>
+    <string name="onboarding_welcome_title">Welcome to Vidalvl</string>
+    <string name="onboarding_welcome_text">Turn your habits into an adventure. You earn experience for being consistent, and you never lose anything if you miss a day.</string>
+    <string name="onboarding_start">Get started</string>
+    <string name="onboarding_goals_title">Why did you join Vidalvl?</string>
+    <string name="onboarding_goals_hint">Pick up to 3. We use them to suggest tasks for each day.</string>
+    <string name="onboarding_time_title">How much time do you have each day?</string>
+    <string name="onboarding_time_hint">So we suggest tasks you can actually do.</string>
+    <string name="onboarding_next">Next</string>
+    <string name="onboarding_back">Back</string>
+    <string name="onboarding_finish">Finish</string>
+    <string name="onboarding_step">Step %1$d of %2$d</string>
+    <string name="goals_counter">%1$d of %2$d selected</string>
+    <string name="profile_goals_title">My goals</string>
+    <string name="profile_goals_edit">Change my goals</string>
 </resources>

@@ -14,9 +14,10 @@ import androidx.sqlite.db.SupportSQLiteDatabase
         AttributeStateEntity::class,
         AvatarProfileEntity::class,
         InventoryItemEntity::class,
-        EquippedEntity::class
+        EquippedEntity::class,
+        PlayerGoalsEntity::class
     ],
-    version = 5,
+    version = 6,
     exportSchema = true
 )
 abstract class VidalvlDatabase : RoomDatabase() {
@@ -26,6 +27,7 @@ abstract class VidalvlDatabase : RoomDatabase() {
     abstract fun avatarDao(): AvatarDao
     abstract fun inventoryDao(): InventoryDao
     abstract fun equippedDao(): EquippedDao
+    abstract fun goalsDao(): GoalsDao
 
     companion object {
         @Volatile
@@ -77,13 +79,24 @@ abstract class VidalvlDatabase : RoomDatabase() {
             }
         }
 
+        /** v5 -> v6: goals chosen on the welcome screen. Existing users see the welcome once. */
+        private val MIGRATION_5_6 = object : Migration(5, 6) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(
+                    "CREATE TABLE IF NOT EXISTS `player_goals` (" +
+                            "`id` INTEGER NOT NULL, `goals` TEXT NOT NULL, `dailyMinutes` INTEGER NOT NULL, " +
+                            "PRIMARY KEY(`id`))"
+                )
+            }
+        }
+
         fun getInstance(context: Context): VidalvlDatabase =
             instance ?: synchronized(this) {
                 instance ?: Room.databaseBuilder(
                     context.applicationContext,
                     VidalvlDatabase::class.java,
                     "vidalvl.db"
-                ).addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5).build().also { instance = it }
+                ).addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6).build().also { instance = it }
             }
     }
 }
