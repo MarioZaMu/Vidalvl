@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reflection_title">Reflejo</string>
+    <string name="reflection_tab_timeline">Línea de tiempo</string>
+    <string name="reflection_tab_achievements">Logros</string>
+    <string name="reflection_week_title">Tu semana</string>
+    <string name="reflection_stat_week">Esta semana</string>
+    <string name="reflection_stat_best_streak">Mejor racha</string>
+    <string name="reflection_stat_top">Más trabajado</string>
+    <string name="reflection_none">—</string>
+    <string name="reflection_today">Hoy</string>
+    <string name="reflection_yesterday">Ayer</string>
+    <string name="reflection_day_active">%1$s: con actividad</string>
+    <string name="reflection_day_idle">%1$s: sin actividad</string>
+    <string name="timeline_empty">Aún no hay historia. Completa tu primera misión y aparecerá aquí.</string>
+    <string name="timeline_item">Nuevo ítem: %1$s</string>
+    <string name="timeline_level_up">Subiste al nivel %1$d</string>
+    <string name="achievements_counter">Logros %1$d/%2$d</string>
+    <string name="achievement_unlocked_on">Desbloqueado el %1$s</string>
+    <string name="achievement_progress">%1$d/%2$d</string>
+</resources>

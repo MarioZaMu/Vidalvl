@@ -69,6 +69,15 @@ interface CompletionDao {
     @Query("SELECT * FROM mission_completions ORDER BY completedAtMillis DESC")
     fun observeAll(): Flow<List<MissionCompletionEntity>>
 
+    /** The whole history with each mission's title and type, for the "Reflejo" screen. */
+    @Query(
+        "SELECT c.completedAtMillis AS completedAtMillis, c.dayEpoch AS dayEpoch, c.xpEarned AS xpEarned, " +
+                "c.attribute AS attribute, m.title AS title, m.type AS type " +
+                "FROM mission_completions c JOIN missions m ON m.id = c.missionId " +
+                "ORDER BY c.completedAtMillis DESC"
+    )
+    fun observeHistory(): Flow<List<CompletionWithTitle>>
+
     @Query("SELECT DISTINCT dayEpoch FROM mission_completions")
     suspend fun allDays(): List<Long>
 

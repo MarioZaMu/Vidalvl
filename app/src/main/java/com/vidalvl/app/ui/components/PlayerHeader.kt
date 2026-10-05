@@ -176,7 +176,7 @@ private fun DayRing(done: Int, total: Int) {
 }
 
 @Composable
-private fun RowScope.StatTile(value: String, label: String) {
+fun RowScope.StatTile(value: String, label: String) {
     Column(
         modifier = Modifier
             .weight(1f)

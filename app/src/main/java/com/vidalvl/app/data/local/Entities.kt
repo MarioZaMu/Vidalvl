@@ -54,6 +54,16 @@ data class MissionCompletionEntity(
     val dayEpoch: Long
 )
 
+/** One completion joined with its mission's title and type (query result, not a table). */
+data class CompletionWithTitle(
+    val completedAtMillis: Long,
+    val dayEpoch: Long,
+    val xpEarned: Int,
+    val attribute: Attribute,
+    val title: String,
+    val type: MissionType
+)
+
 /** Accumulated progress of one attribute. Level and glow are derived from this. */
 @Entity(tableName = "attribute_states")
 data class AttributeStateEntity(

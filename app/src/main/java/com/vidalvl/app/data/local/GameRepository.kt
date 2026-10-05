@@ -148,6 +148,8 @@ class GameRepository(private val db: VidalvlDatabase) {
 
     fun observeAchievements(): Flow<List<AchievementEntity>> = achievementDao.observeAll()
 
+    fun observeHistory(): Flow<List<CompletionWithTitle>> = completionDao.observeHistory()
+
     /** Debug tool: unlocks every achievement and gives their prizes, to see the screens without waiting weeks. */
     suspend fun debugUnlockAllAchievements(): List<AchievementUnlock> = db.withTransaction {
         val unlocked = achievementDao.unlockedIds().toSet()
