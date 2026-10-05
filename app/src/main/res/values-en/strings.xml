@@ -216,4 +216,15 @@
     <string name="goals_counter">%1$d of %2$d selected</string>
     <string name="profile_goals_title">My goals</string>
     <string name="profile_goals_edit">Change my goals</string>
+
+    <!-- Suggested missions (phase 7B) -->
+    <string name="suggestions_today">Suggested for today (%1$d)</string>
+    <string name="suggestions_week">Suggested for this week (%1$d)</string>
+    <string name="suggestions_loading">Preparing your tasks…</string>
+    <string name="suggestions_consent_title">AI tasks</string>
+    <string name="suggestions_consent_text">Every day, Gemini (Google\'s AI) can suggest tasks based on your goals. To do that, your goals, your available time, your level in each attribute, your streak and the titles of your missions are sent. Photos are never sent. On the free tier, Google may use the content to improve its products. If you prefer, use only ideas saved in the app. You can change this in Profile.</string>
+    <string name="suggestions_consent_ai">Use the AI</string>
+    <string name="suggestions_consent_local">App ideas only</string>
+    <string name="profile_ai_title">AI tasks</string>
+    <string name="profile_ai_hint">Gemini suggests your tasks every day. Your goals and mission titles are sent, never photos. When off, you get ideas saved in the app.</string>
 </resources>

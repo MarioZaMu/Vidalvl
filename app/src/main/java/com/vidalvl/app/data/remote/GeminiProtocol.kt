@@ -70,7 +70,7 @@ object GeminiProtocol {
     fun parseVerdict(responseJson: String): VerificationResult {
         val unreadable = VerificationResult.Failed(FailureKind.UNREADABLE_ANSWER)
         return try {
-            val answer = firstText(JSONObject(responseJson)) ?: return unreadable
+            val answer = answerText(JSONObject(responseJson)) ?: return unreadable
             val verdict = JSONObject(extractJsonObject(answer))
             if (!verdict.has("verified")) return unreadable
             if (verdict.getBoolean("verified")) {
@@ -84,7 +84,7 @@ object GeminiProtocol {
     }
 
     /** The last text part of the first candidate (models may put reasoning parts before the answer). */
-    private fun firstText(root: JSONObject): String? {
+    internal fun answerText(root: JSONObject): String? {
         val parts = root.optJSONArray("candidates")
             ?.optJSONObject(0)
             ?.optJSONObject("content")
@@ -100,7 +100,7 @@ object GeminiProtocol {
     }
 
     /** Tolerates answers wrapped in markdown fences or with a sentence around the JSON. */
-    private fun extractJsonObject(text: String): String {
+    internal fun extractJsonObject(text: String): String {
         val start = text.indexOf('{')
         val end = text.lastIndexOf('}')
         return if (start in 0 until end) text.substring(start, end + 1) else text

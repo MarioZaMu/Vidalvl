@@ -17,9 +17,15 @@ import com.vidalvl.app.domain.model.ItemSlot
 import com.vidalvl.app.domain.model.LevelInfo
 import com.vidalvl.app.domain.model.MissionType
 import com.vidalvl.app.domain.model.StreakRules
+import com.vidalvl.app.domain.suggestions.SuggestionOutcome
+import com.vidalvl.app.domain.suggestions.SuggestionService
 import com.vidalvl.app.BuildConfig
+import com.vidalvl.app.data.local.ResourceFallbackSuggestions
+import com.vidalvl.app.data.local.RoomSuggestionStore
+import com.vidalvl.app.data.local.SuggestionPrefs
 import com.vidalvl.app.data.local.VerificationPrefs
 import com.vidalvl.app.data.remote.GeminiApi
+import com.vidalvl.app.data.remote.GeminiMissionSuggester
 import com.vidalvl.app.data.remote.GeminiPhotoVerifier
 import com.vidalvl.app.domain.verification.LimitedPhotoVerifier
 import com.vidalvl.app.domain.verification.PhotoVerifier
@@ -141,18 +147,71 @@ class MissionsViewModel(application: Application) : AndroidViewModel(application
     }
 
     private val verificationPrefs = VerificationPrefs(application)
+    private val geminiApi = GeminiApi.create()
+    private fun appLanguage() = Locale.getDefault().getDisplayLanguage(Locale.ENGLISH).ifBlank { "English" }
 
     /** Gemini behind the daily cap. The cap counts only real verdicts, never network errors. */
     private val verifier: PhotoVerifier = LimitedPhotoVerifier(
         inner = GeminiPhotoVerifier(
-            api = GeminiApi.create(),
+            api = geminiApi,
             apiKey = BuildConfig.GEMINI_API_KEY,
             model = BuildConfig.GEMINI_MODEL,
-            language = { Locale.getDefault().getDisplayLanguage(Locale.ENGLISH).ifBlank { "English" } }
+            language = ::appLanguage
         ),
         usage = verificationPrefs,
         today = { LocalDate.now().toEpochDay() }
     )
+
+    private val suggestionPrefs = SuggestionPrefs(application)
+
+    /** Daily and weekly suggested missions: Gemini when the user agreed, built-in ideas otherwise. */
+    private val suggestionService = SuggestionService(
+        store = RoomSuggestionStore(VidalvlDatabase.getInstance(application)),
+        suggester = GeminiMissionSuggester(geminiApi, BuildConfig.GEMINI_API_KEY, BuildConfig.GEMINI_MODEL),
+        fallback = ResourceFallbackSuggestions(application),
+        settings = suggestionPrefs,
+        language = ::appLanguage,
+        today = { LocalDate.now().toEpochDay() }
+    )
+
+    private val _generating = MutableStateFlow(false)
+
+    /** True while today's suggestions are being made. */
+    val generating: StateFlow<Boolean> = _generating
+
+    private val _needsSuggestionChoice = MutableStateFlow(false)
+
+    /** True when the user must still choose between AI and built-in ideas. */
+    val needsSuggestionChoice: StateFlow<Boolean> = _needsSuggestionChoice
+
+    private val _aiEnabled = MutableStateFlow(suggestionPrefs.aiEnabled)
+
+    /** Null until the user has chosen. */
+    val aiEnabled: StateFlow<Boolean?> = _aiEnabled
+
+    /** Makes today's (and this week's) suggestions if they do not exist yet. Safe to call often. */
+    fun refreshSuggestions() {
+        viewModelScope.launch {
+            _generating.value = true
+            try {
+                _needsSuggestionChoice.value = suggestionService.ensureCurrent() == SuggestionOutcome.NEEDS_CONSENT
+            } finally {
+                _generating.value = false
+            }
+        }
+    }
+
+    /** First-time choice: AI (the user accepts that goals and mission titles go to Google) or built-in ideas. */
+    fun chooseSuggestions(useAi: Boolean) {
+        setAiEnabled(useAi)
+        _needsSuggestionChoice.value = false
+        refreshSuggestions()
+    }
+
+    fun setAiEnabled(useAi: Boolean) {
+        suggestionPrefs.aiEnabled = useAi
+        _aiEnabled.value = useAi
+    }
 
     private val _consentGiven = MutableStateFlow(verificationPrefs.consentGiven)
 

@@ -25,6 +25,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -52,6 +53,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.vidalvl.app.R
 import com.vidalvl.app.data.local.MissionEntity
@@ -81,7 +83,17 @@ fun MissionsScreen(viewModel: MissionsViewModel = viewModel()) {
     val context = LocalContext.current
     var selectedTab by rememberSaveable { mutableIntStateOf(0) }
     val missions = if (selectedTab == 0) state.daily else state.weekly
-    val (active, completed) = missions.partition { !it.completed }
+    val (activeAll, completed) = missions.partition { !it.completed }
+    // Suggested missions get their own section; default and user missions stay under "Active".
+    val (suggested, active) = activeAll.partition { it.mission.generatedFor != null }
+
+    val generating by viewModel.generating.collectAsState()
+    val needsSuggestionChoice by viewModel.needsSuggestionChoice.collectAsState()
+    // Coming back to the app (or a new day starting while it was closed) makes today's suggestions if missing.
+    LifecycleResumeEffect(Unit) {
+        viewModel.refreshSuggestions()
+        onPauseOrDispose { }
+    }
 
     var editor by remember { mutableStateOf<EditorState?>(null) }
     var actionsFor by remember { mutableStateOf<MissionItem?>(null) }
@@ -177,11 +189,28 @@ fun MissionsScreen(viewModel: MissionsViewModel = viewModel()) {
             }
             item(key = "tabs") { MissionTabs(selectedTab) { selectedTab = it } }
 
+            if (generating) {
+                item(key = "generating") { GeneratingNotice() }
+            }
+
             if (active.isNotEmpty()) {
                 item(key = "header_active") {
                     SectionHeader(stringResource(R.string.missions_active, active.size))
                 }
                 items(active, key = { it.mission.id }) { entry ->
+                    MissionRow(entry, Modifier.animateItem())
+                }
+            }
+            if (suggested.isNotEmpty()) {
+                item(key = "header_suggested") {
+                    SectionHeader(
+                        stringResource(
+                            if (selectedTab == 0) R.string.suggestions_today else R.string.suggestions_week,
+                            suggested.size
+                        )
+                    )
+                }
+                items(suggested, key = { it.mission.id }) { entry ->
                     MissionRow(entry, Modifier.animateItem())
                 }
             }
@@ -230,6 +259,25 @@ fun MissionsScreen(viewModel: MissionsViewModel = viewModel()) {
     val newItems by viewModel.newItems.collectAsState()
     if (newItems.isNotEmpty()) {
         NewItemsDialog(newItems, onDismiss = viewModel::dismissNewItems)
+    }
+
+    if (needsSuggestionChoice) {
+        // No way to dismiss without choosing: the answer decides whether anything is sent to Google.
+        AlertDialog(
+            onDismissRequest = {},
+            title = { Text(stringResource(R.string.suggestions_consent_title)) },
+            text = { Text(stringResource(R.string.suggestions_consent_text)) },
+            confirmButton = {
+                TextButton(onClick = { viewModel.chooseSuggestions(useAi = true) }) {
+                    Text(stringResource(R.string.suggestions_consent_ai))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { viewModel.chooseSuggestions(useAi = false) }) {
+                    Text(stringResource(R.string.suggestions_consent_local))
+                }
+            }
+        )
     }
 
     when (val current = editor) {
@@ -336,6 +384,22 @@ private fun MissionActionsSheet(
                 modifier = Modifier.clickable(role = Role.Button, onClick = onDelete)
             )
         }
+    }
+}
+
+@Composable
+private fun GeneratingNotice() {
+    Row(
+        modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        CircularProgressIndicator(modifier = Modifier.size(20.dp), strokeWidth = 2.dp)
+        Text(
+            text = stringResource(R.string.suggestions_loading),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
     }
 }
 

@@ -216,4 +216,15 @@
     <string name="goals_counter">%1$d de %2$d elegidos</string>
     <string name="profile_goals_title">Mis objetivos</string>
     <string name="profile_goals_edit">Cambiar mis objetivos</string>
+
+    <!-- Suggested missions (phase 7B) -->
+    <string name="suggestions_today">Sugeridas para hoy (%1$d)</string>
+    <string name="suggestions_week">Sugeridas para esta semana (%1$d)</string>
+    <string name="suggestions_loading">Preparando tus tareas…</string>
+    <string name="suggestions_consent_title">Tareas con IA</string>
+    <string name="suggestions_consent_text">Cada día, Gemini (la IA de Google) puede proponerte tareas según tus objetivos. Para eso se envían tus objetivos, el tiempo que tienes, tu nivel por atributo, tu racha y los títulos de tus misiones. Nunca se envían fotos. Con el nivel gratuito, Google puede usar el contenido para mejorar sus productos. Si prefieres, usa solo ideas guardadas en la app. Puedes cambiarlo en Perfil.</string>
+    <string name="suggestions_consent_ai">Usar la IA</string>
+    <string name="suggestions_consent_local">Solo ideas de la app</string>
+    <string name="profile_ai_title">Tareas con IA</string>
+    <string name="profile_ai_hint">Gemini propone tus tareas cada día. Se envían tus objetivos y los títulos de tus misiones, nunca fotos. Apagado, usas ideas guardadas en la app.</string>
 </resources>

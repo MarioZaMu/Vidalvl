@@ -17,7 +17,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
         EquippedEntity::class,
         PlayerGoalsEntity::class
     ],
-    version = 6,
+    version = 7,
     exportSchema = true
 )
 abstract class VidalvlDatabase : RoomDatabase() {
@@ -90,13 +90,20 @@ abstract class VidalvlDatabase : RoomDatabase() {
             }
         }
 
+        /** v6 -> v7: marks suggested missions with the period they were made for. Existing missions stay as they are. */
+        private val MIGRATION_6_7 = object : Migration(6, 7) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE `missions` ADD COLUMN `generatedFor` INTEGER")
+            }
+        }
+
         fun getInstance(context: Context): VidalvlDatabase =
             instance ?: synchronized(this) {
                 instance ?: Room.databaseBuilder(
                     context.applicationContext,
                     VidalvlDatabase::class.java,
                     "vidalvl.db"
-                ).addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6).build().also { instance = it }
+                ).addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7).build().also { instance = it }
             }
     }
 }

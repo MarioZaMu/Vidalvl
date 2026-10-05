@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Built-in mission ideas, used when the AI is off or unreachable. Titles must stay under 40 characters. -->
+<resources>
+    <string-array name="fallback_daily_fit">
+        <item>5-minute stretching</item>
+        <item>Walk for 10 minutes</item>
+        <item>Do 15 squats</item>
+        <item>Take the stairs today</item>
+    </string-array>
+    <string-array name="fallback_weekly_fit">
+        <item>Exercise on 3 days</item>
+        <item>Try a new sport or class</item>
+        <item>Walk 30 minutes, twice</item>
+    </string-array>
+
+    <string-array name="fallback_daily_learn">
+        <item>Read 10 pages</item>
+        <item>Learn a new word</item>
+        <item>Watch a short educational video</item>
+        <item>Review your notes for 10 minutes</item>
+    </string-array>
+    <string-array name="fallback_weekly_learn">
+        <item>Finish a chapter or lesson</item>
+        <item>Summarize what you learned</item>
+        <item>Practice a skill on 3 days</item>
+    </string-array>
+
+    <string-array name="fallback_daily_discipline">
+        <item>Plan your day in 5 minutes</item>
+        <item>Tidy your desk</item>
+        <item>Do your hardest task first</item>
+        <item>Lay out clothes for tomorrow</item>
+    </string-array>
+    <string-array name="fallback_weekly_discipline">
+        <item>Review your weekly goals</item>
+        <item>Organize your files or room</item>
+        <item>Keep a fixed schedule 4 days</item>
+    </string-array>
+
+    <string-array name="fallback_daily_relationships">
+        <item>Message a friend</item>
+        <item>Thank someone</item>
+        <item>Listen without checking your phone</item>
+        <item>Call a family member</item>
+    </string-array>
+    <string-array name="fallback_weekly_relationships">
+        <item>Make a plan with a friend</item>
+        <item>Write to someone you miss</item>
+        <item>Do something kind for someone</item>
+    </string-array>
+
+    <string-array name="fallback_daily_sleep">
+        <item>No phone 30 min before bed</item>
+        <item>Go to bed at your usual time</item>
+        <item>No caffeine after 4 pm</item>
+        <item>Air out and darken your room</item>
+    </string-array>
+    <string-array name="fallback_weekly_sleep">
+        <item>Sleep at the same time 5 nights</item>
+        <item>Build a bedtime routine</item>
+        <item>No screens in bed for 4 nights</item>
+    </string-array>
+
+    <string-array name="fallback_daily_less_phone">
+        <item>One hour without your phone</item>
+        <item>Put your phone away at meals</item>
+        <item>Mute useless notifications</item>
+        <item>No phone until after breakfast</item>
+    </string-array>
+    <string-array name="fallback_weekly_less_phone">
+        <item>A day under 2 h of screen time</item>
+        <item>Uninstall a distracting app</item>
+        <item>Spend an afternoon phone-free</item>
+    </string-array>
+
+    <string-array name="fallback_daily_eat_well">
+        <item>Drink 2 liters of water</item>
+        <item>Eat an extra fruit or vegetable</item>
+        <item>Cook a meal at home</item>
+        <item>Skip sugary drinks today</item>
+    </string-array>
+    <string-array name="fallback_weekly_eat_well">
+        <item>Plan your meals for the week</item>
+        <item>Try a new healthy recipe</item>
+        <item>Cook at home 4 days</item>
+    </string-array>
+
+    <string-array name="fallback_daily_stress">
+        <item>Breathe deeply for 5 minutes</item>
+        <item>Walk without headphones 10 min</item>
+        <item>Write down how you feel</item>
+        <item>Take a 5-minute break</item>
+    </string-array>
+    <string-array name="fallback_weekly_stress">
+        <item>Spend an afternoon on a hobby</item>
+        <item>Meditate on 3 days</item>
+        <item>Talk about what worries you</item>
+    </string-array>
+</resources>

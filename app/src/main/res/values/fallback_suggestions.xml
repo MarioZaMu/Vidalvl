@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Built-in mission ideas, used when the AI is off or unreachable. Titles must stay under 40 characters. -->
+<resources>
+    <string-array name="fallback_daily_fit">
+        <item>Estiramientos de 5 minutos</item>
+        <item>Caminar 10 minutos</item>
+        <item>Hacer 15 sentadillas</item>
+        <item>Usar las escaleras hoy</item>
+    </string-array>
+    <string-array name="fallback_weekly_fit">
+        <item>Hacer ejercicio 3 días</item>
+        <item>Probar un deporte o clase nueva</item>
+        <item>Caminar 30 minutos, dos veces</item>
+    </string-array>
+
+    <string-array name="fallback_daily_learn">
+        <item>Leer 10 páginas</item>
+        <item>Aprender una palabra nueva</item>
+        <item>Ver un video educativo corto</item>
+        <item>Repasar tus apuntes 10 minutos</item>
+    </string-array>
+    <string-array name="fallback_weekly_learn">
+        <item>Terminar un capítulo o lección</item>
+        <item>Resumir lo aprendido en una nota</item>
+        <item>Practicar una habilidad 3 días</item>
+    </string-array>
+
+    <string-array name="fallback_daily_discipline">
+        <item>Planear tu día en 5 minutos</item>
+        <item>Ordenar tu escritorio</item>
+        <item>Hacer primero la tarea más difícil</item>
+        <item>Dejar lista tu ropa de mañana</item>
+    </string-array>
+    <string-array name="fallback_weekly_discipline">
+        <item>Revisar tus metas de la semana</item>
+        <item>Organizar tus archivos o tu cuarto</item>
+        <item>Cumplir un horario fijo 4 días</item>
+    </string-array>
+
+    <string-array name="fallback_daily_relationships">
+        <item>Mandar un mensaje a un amigo</item>
+        <item>Dar las gracias a alguien</item>
+        <item>Escuchar sin mirar el celular</item>
+        <item>Llamar a alguien de tu familia</item>
+    </string-array>
+    <string-array name="fallback_weekly_relationships">
+        <item>Hacer un plan con un amigo</item>
+        <item>Escribir a alguien que extrañas</item>
+        <item>Hacer algo amable por alguien</item>
+    </string-array>
+
+    <string-array name="fallback_daily_sleep">
+        <item>Sin celular 30 min antes de dormir</item>
+        <item>Acostarte a tu hora de siempre</item>
+        <item>Sin cafeína después de las 4 pm</item>
+        <item>Ventilar y oscurecer tu cuarto</item>
+    </string-array>
+    <string-array name="fallback_weekly_sleep">
+        <item>Dormir a la misma hora 5 noches</item>
+        <item>Armar una rutina para dormir</item>
+        <item>Sin pantallas en la cama 4 noches</item>
+    </string-array>
+
+    <string-array name="fallback_daily_less_phone">
+        <item>Una hora sin celular</item>
+        <item>Guardar el celular en la comida</item>
+        <item>Silenciar notificaciones inútiles</item>
+        <item>Sin celular hasta desayunar</item>
+    </string-array>
+    <string-array name="fallback_weekly_less_phone">
+        <item>Un día con menos de 2 h de pantalla</item>
+        <item>Desinstalar una app que te distrae</item>
+        <item>Pasar una tarde sin el celular</item>
+    </string-array>
+
+    <string-array name="fallback_daily_eat_well">
+        <item>Beber 2 litros de agua</item>
+        <item>Comer una fruta o verdura extra</item>
+        <item>Cocinar una comida en casa</item>
+        <item>Evitar bebidas azucaradas hoy</item>
+    </string-array>
+    <string-array name="fallback_weekly_eat_well">
+        <item>Planear tus comidas de la semana</item>
+        <item>Probar una receta saludable nueva</item>
+        <item>Cocinar en casa 4 días</item>
+    </string-array>
+
+    <string-array name="fallback_daily_stress">
+        <item>Respirar profundo 5 minutos</item>
+        <item>Caminar sin audífonos 10 minutos</item>
+        <item>Escribir cómo te sientes</item>
+        <item>Hacer una pausa de 5 minutos</item>
+    </string-array>
+    <string-array name="fallback_weekly_stress">
+        <item>Dedicar una tarde a un pasatiempo</item>
+        <item>Meditar 3 días</item>
+        <item>Hablar de lo que te preocupa</item>
+    </string-array>
+</resources>

@@ -30,6 +30,16 @@ interface MissionDao {
     /** Soft delete: the mission disappears from the lists but its history and XP stay. */
     @Query("UPDATE missions SET isActive = 0 WHERE id = :id")
     suspend fun deactivate(id: Long)
+
+    @Query("SELECT title FROM missions WHERE isActive = 1")
+    suspend fun activeTitles(): List<String>
+
+    /** Hides suggested missions whose day (daily) or week (weekly) is over. */
+    @Query(
+        "UPDATE missions SET isActive = 0 WHERE isActive = 1 AND generatedFor IS NOT NULL AND " +
+                "((type = 'DAILY' AND generatedFor < :today) OR (type = 'WEEKLY' AND generatedFor < :monday))"
+    )
+    suspend fun expireSuggestions(today: Long, monday: Long)
 }
 
 @Dao
@@ -54,6 +64,15 @@ interface CompletionDao {
 
     @Query("SELECT * FROM mission_completions ORDER BY completedAtMillis DESC")
     fun observeAll(): Flow<List<MissionCompletionEntity>>
+
+    @Query("SELECT DISTINCT dayEpoch FROM mission_completions")
+    suspend fun allDays(): List<Long>
+
+    @Query(
+        "SELECT DISTINCT m.title FROM mission_completions c JOIN missions m ON m.id = c.missionId " +
+                "WHERE c.dayEpoch >= :fromDay"
+    )
+    suspend fun titlesSince(fromDay: Long): List<String>
 }
 
 @Dao
@@ -87,6 +106,9 @@ interface AvatarDao {
 interface GoalsDao {
     @Query("SELECT * FROM player_goals WHERE id = 1")
     fun observe(): Flow<PlayerGoalsEntity?>
+
+    @Query("SELECT * FROM player_goals WHERE id = 1")
+    suspend fun get(): PlayerGoalsEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsert(goals: PlayerGoalsEntity)

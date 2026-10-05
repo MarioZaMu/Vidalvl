@@ -23,7 +23,12 @@ data class MissionEntity(
     val requiresPhoto: Boolean = false,
     val isActive: Boolean = true,
     /** Catalog item given by this mission (special "reward" missions only). */
-    val rewardItemId: String? = null
+    val rewardItemId: String? = null,
+    /**
+     * Set only for suggested missions: the day (daily) or the Monday (weekly) they were made for.
+     * They disappear when that period ends. Default and user missions leave it null.
+     */
+    val generatedFor: Long? = null
 )
 
 /** History of completed missions. Feeds streaks, the reflection timeline and AI suggestions. */
