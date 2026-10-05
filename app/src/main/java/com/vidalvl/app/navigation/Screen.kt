@@ -10,11 +10,11 @@ import androidx.compose.ui.graphics.vector.ImageVector
 /** App destinations shown in the bottom bar. */
 sealed class Screen(val route: String, val label: String, val icon: ImageVector) {
     data object Missions : Screen("missions", "Misiones", Icons.Filled.Home)
-    data object Creature : Screen("creature", "Criatura", Icons.Filled.Face)
+    data object Avatar : Screen("avatar", "Avatar", Icons.Filled.Face)
     data object Reflection : Screen("reflection", "Reflejo", Icons.Filled.DateRange)
     data object Profile : Screen("profile", "Perfil", Icons.Filled.Person)
 
     companion object {
-        val bottomBarItems = listOf(Missions, Creature, Reflection, Profile)
+        val bottomBarItems = listOf(Missions, Avatar, Reflection, Profile)
     }
 }

@@ -10,7 +10,8 @@ class GameRulesTest {
         assertEquals(1, GameRules.levelFor(99).level)
         assertEquals(2, GameRules.levelFor(100).level)
         assertEquals(0, GameRules.levelFor(100).xpIntoLevel)
-        assertEquals(3, GameRules.levelFor(250).level)
+        assertEquals(2, GameRules.levelFor(219).level)
+        assertEquals(3, GameRules.levelFor(220).level)
     }
 
     @Test

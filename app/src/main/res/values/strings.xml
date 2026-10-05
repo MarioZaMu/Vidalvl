@@ -1,3 +1,192 @@
 <resources>
     <string name="app_name">Vidalvl</string>
+
+    <!-- Avatar test screen (phase 5A, replaced by the creator in 5C) -->
+    <string name="avatar_title">Avatar</string>
+    <string name="avatar_gender">Género</string>
+    <string name="avatar_gender_male">Masculino</string>
+    <string name="avatar_gender_female">Femenino</string>
+    <string name="avatar_skin_tone">Tono de piel</string>
+    <string name="avatar_hair_style">Peinado</string>
+    <string name="avatar_hair_color">Color de pelo</string>
+    <string name="avatar_content_description">Tu avatar</string>
+    <string name="avatar_hair_color_option">Color de pelo %1$d</string>
+    <string name="avatar_create_title">Crea tu avatar</string>
+    <string name="avatar_edit_title">Edita tu avatar</string>
+    <string name="avatar_edit">Editar avatar</string>
+    <string name="avatar_save">Guardar</string>
+    <string name="avatar_cancel">Cancelar</string>
+    <string name="avatar_skin_tone_option">Tono de piel %1$d</string>
+    <string name="avatar_hair_style_option">Peinado %1$d</string>
+
+    <!-- Items (phase 5D) -->
+
+    <string name="inventory_title">Inventario</string>
+    <string name="slot_hat">Sombreros</string>
+    <string name="slot_glasses">Lentes</string>
+    <string name="slot_cloak">Capas</string>
+    <string name="slot_outfit">Ropa</string>
+    <string name="item_male_only">Solo avatar masculino</string>
+    <string name="avatar_eyes">Ojos</string>
+    <string name="avatar_eyes_option">Ojos %1$d</string>
+    <string name="item_equipped">Equipado</string>
+    <string name="item_req_level">Nivel %1$d</string>
+    <string name="item_req_weekly">Semanal de %1$s</string>
+    <string name="item_req_special">Misión especial</string>
+    <string name="item_req_attribute">%1$s nivel %2$d</string>
+    <string name="item_locked_description">%1$s, bloqueado: %2$s</string>
+
+    <string name="reward_title">¡Nuevo ítem!</string>
+    <string name="reward_title_many">¡Nuevos ítems!</string>
+    <string name="reward_hint">Equípalo en la pestaña Avatar.</string>
+    <string name="reward_ok">Genial</string>
+    <string name="item_outfit_001">Atuendo verde</string>
+    <string name="item_hat_011">Gorra roja</string>
+    <string name="item_glasses_001_1">Lentes rojos</string>
+    <string name="item_outfit_009">Atuendo blanco</string>
+    <string name="item_hat_005">Cofia</string>
+    <string name="item_glasses_003_1">Lentes oscuros pequeños</string>
+    <string name="item_cloak_002">Capa de encaje</string>
+    <string name="item_outfit_014">Atuendo casual</string>
+    <string name="item_hat_014">Sombrero negro</string>
+    <string name="item_glasses_002_1">Lentes celestes</string>
+    <string name="item_outfit_012">Ropa interior</string>
+    <string name="item_hat_009">Gorro blanco</string>
+    <string name="item_cloak_004">Capa negra</string>
+    <string name="item_outfit_013">Traje negro</string>
+    <string name="item_glasses_005_1">Lentes de sol redondos</string>
+    <string name="item_hat_008">Gorra blanca</string>
+    <string name="item_outfit_010">Atuendo de gala blanco</string>
+    <string name="item_glasses_006_1">Lentes de sol anchos</string>
+    <string name="item_cloak_003">Chal blanco</string>
+    <string name="item_outfit_016">Atuendo de oficina</string>
+    <string name="item_hat_010">Cinta roja</string>
+    <string name="item_outfit_018">Traje de baño turquesa</string>
+    <string name="item_outfit_003">Armadura gris</string>
+    <string name="item_hat_001_1">Casco gris</string>
+    <string name="item_outfit_019">Traje de baño celeste</string>
+    <string name="item_hat_001_2">Casco blanco</string>
+    <string name="item_outfit_008">Armadura azul</string>
+    <string name="item_hat_001_3">Casco azul</string>
+    <string name="item_outfit_020">Traje de baño rojo</string>
+    <string name="item_glasses_001_2">Lentes rojo y blanco</string>
+    <string name="item_hat_006">Sombrero de ala ancha</string>
+    <string name="item_glasses_002_2">Lentes turquesa</string>
+    <string name="item_outfit_007">Atuendo azul</string>
+    <string name="item_glasses_004_1">Lentes de sol</string>
+    <string name="item_hat_007">Sombrero de bruja</string>
+    <string name="item_outfit_015">Traje de oficina</string>
+    <string name="item_glasses_007_1">Lentes rosados</string>
+    <string name="item_cloak_005">Capa negra con broche</string>
+    <string name="item_hat_003">Coronita dorada</string>
+    <string name="item_outfit_005">Atuendo de explorador</string>
+    <string name="item_glasses_007_2">Lentes rosa claro</string>
+    <string name="item_outfit_006">Atuendo de aventura</string>
+    <string name="item_hat_002">Coronita naranja</string>
+    <string name="item_outfit_004">Capucha verde</string>
+    <string name="item_cloak_008">Abrigo blanco</string>
+    <string name="item_outfit_021">Traje de baño naranja</string>
+    <string name="item_hat_012">Peluca blanca</string>
+    <string name="item_hat_015_1">Lazo blanco</string>
+    <string name="item_outfit_002">Atuendo de bosque</string>
+    <string name="item_hat_015_2">Lazo gris</string>
+    <string name="item_hat_015_3">Lazo rojo</string>
+    <string name="item_outfit_011">Atuendo oscuro</string>
+    <string name="item_hat_016_1">Moño blanco derecho</string>
+    <string name="item_hat_016_2">Moño gris derecho</string>
+    <string name="item_hat_016_3">Moño rojo derecho</string>
+    <string name="item_outfit_017">Atuendo de hojas</string>
+    <string name="item_hat_013">Calabaza</string>
+    <string name="item_cloak_006">Bufanda rosa</string>
+    <string name="item_cloak_007">Bufanda verde</string>
+    <string name="item_hat_017_1">Moño blanco izquierdo</string>
+    <string name="item_hat_017_2">Moño gris izquierdo</string>
+    <string name="item_hat_017_3">Moño rojo izquierdo</string>
+
+    <!-- Attributes -->
+    <string name="attribute_body">Cuerpo</string>
+    <string name="attribute_mind">Mente</string>
+    <string name="attribute_discipline">Disciplina</string>
+    <string name="attribute_social">Social</string>
+    <string name="attribute_level_short">Nv %1$d</string>
+
+    <!-- Missions screen (phase 4B) -->
+    <string name="missions_title">Misiones</string>
+    <string name="missions_tab_daily">Diarias</string>
+    <string name="missions_tab_weekly">Semanales</string>
+    <string name="missions_active">Activas (%1$d)</string>
+    <string name="missions_completed">Completadas (%1$d)</string>
+    <string name="mission_xp_attribute">%1$s · +%2$d XP</string>
+    <string name="mission_photo_hint">Se verificará con foto</string>
+    <string name="mission_completed">Completada</string>
+    <string name="mission_pending">Pendiente</string>
+    <string name="mission_xp_pop">+%1$d XP · %2$s</string>
+
+    <!-- Player header -->
+    <string name="player_default_name">Aventurero</string>
+    <string name="player_level">Nv. %1$d</string>
+    <string name="player_xp_label">Experiencia</string>
+    <string name="player_xp_value">%1$d/%2$d XP</string>
+    <string name="player_today">Hoy</string>
+    <string name="player_today_description">Hoy: %1$d de %2$d diarias</string>
+    <string name="stat_streak">Racha</string>
+    <string name="stat_streak_value">%1$d d</string>
+    <string name="stat_total_xp">XP total</string>
+    <string name="stat_items">Ítems</string>
+    <string name="stat_items_value">%1$d/%2$d</string>
+
+    <!-- Avatar creator: name -->
+    <string name="avatar_name">Nombre</string>
+    <string name="avatar_name_counter">%1$d/%2$d</string>
+
+    <!-- Create / edit / delete missions (phase 4C) -->
+    <string name="action_save">Guardar</string>
+    <string name="action_cancel">Cancelar</string>
+    <string name="action_edit">Editar</string>
+    <string name="action_delete">Eliminar</string>
+    <string name="mission_add">Nueva misión</string>
+    <string name="mission_edit_title">Editar misión</string>
+    <string name="mission_field_title">Título</string>
+    <string name="mission_field_description">Descripción (opcional)</string>
+    <string name="mission_field_attribute">Atributo</string>
+    <string name="mission_field_type">Tipo</string>
+    <string name="mission_type_daily">Diaria</string>
+    <string name="mission_type_weekly">Semanal</string>
+    <string name="mission_type_daily_xp">Diaria · +%1$d XP</string>
+    <string name="mission_type_weekly_xp">Semanal · +%1$d XP</string>
+    <string name="mission_fixed_info">%1$s · %2$s</string>
+    <string name="mission_fixed_hint">El atributo y el tipo no se pueden cambiar.</string>
+    <string name="mission_delete_title">¿Eliminar esta misión?</string>
+    <string name="mission_delete_text">Tu XP, tus niveles y tu historial se conservan.</string>
+    <string name="field_counter">%1$d/%2$d</string>
+
+    <!-- Photo verification (phase 6) -->
+    <string name="mission_requires_photo">Verificar con foto</string>
+    <string name="mission_requires_photo_hint">Se te pedirá una foto al completarla. La foto no se guarda en tu teléfono.</string>
+    <string name="photo_title_hint">Muestra: %1$s</string>
+    <string name="photo_take">Tomar foto</string>
+    <string name="photo_close">Cerrar</string>
+    <string name="photo_retake">Repetir</string>
+    <string name="photo_use">Usar foto</string>
+    <string name="photo_retry">Reintentar</string>
+    <string name="photo_checking">Verificando tu foto…</string>
+    <string name="photo_permission_title">Necesito la cámara</string>
+    <string name="photo_permission_text">Esta misión se verifica con una foto. La foto no se guarda en tu teléfono.</string>
+    <string name="photo_permission_retry">Permitir cámara</string>
+    <string name="photo_permission_settings">Abrir ajustes</string>
+    <string name="photo_camera_error">No se pudo abrir la cámara.</string>
+    <string name="photo_capture_error">No se pudo tomar la foto. Inténtalo de nuevo.</string>
+    <string name="photo_problem_title">Todavía no se ve</string>
+    <string name="photo_failed_network">Sin conexión. Revisa tu internet e inténtalo de nuevo.</string>
+    <string name="photo_failed_service">El servicio de verificación no responde. Inténtalo en un momento.</string>
+    <string name="photo_failed_unreadable">No pude entender la respuesta. Inténtalo de nuevo.</string>
+    <string name="photo_failed_limit">Llegaste al límite de verificaciones de hoy.</string>
+    <string name="photo_failed_not_configured">La verificación con IA no está configurada en esta versión de la app.</string>
+    <string name="photo_rejected_default">No pude ver que la misión esté hecha. Prueba con otra foto.</string>
+    <string name="photo_skip">Completar sin verificar</string>
+    <string name="photo_skip_hint">Si crees que tu foto está bien, puedes completarla igualmente. Confiamos en ti.</string>
+    <string name="photo_consent_title">Tu foto se envía a Google</string>
+    <string name="photo_consent_text">Para revisar si cumpliste la misión, la foto se envía a Gemini, el servicio de IA de Google. Con el nivel gratuito, Google puede usar el contenido para mejorar sus productos. Evita que salgan otras personas o datos privados. La foto no se guarda en tu teléfono ni en esta app.</string>
+    <string name="photo_consent_accept">Entendido, continuar</string>
+    <string name="photo_consent_decline">Ahora no</string>
 </resources>

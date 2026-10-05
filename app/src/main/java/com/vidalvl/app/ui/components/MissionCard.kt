@@ -1,20 +1,20 @@
 package com.vidalvl.app.ui.components
 
+import androidx.annotation.DrawableRes
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -28,20 +28,28 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.CustomAccessibilityAction
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.customActions
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import com.vidalvl.app.R
 
 private const val RESTING_GLOW = 0.35f
 
 /**
- * Mission card. The whole card is the button. The color strip on top shows the attribute.
- * When completed it pulses once and keeps a soft glow in the attribute color.
+ * Mission row. The whole row is the toggle. The badge on the left shows the attribute;
+ * when completed it pulses once, keeps a soft glow in the attribute color and fades a little.
  */
 @Composable
 fun MissionCard(
@@ -49,9 +57,13 @@ fun MissionCard(
     subtitle: String?,
     attributeLabel: String,
     attributeColor: Color,
+    @DrawableRes iconRes: Int,
     xp: Int,
     completed: Boolean,
     onToggle: () -> Unit,
+    onLongClick: () -> Unit,
+    onEdit: () -> Unit,
+    onDelete: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val haptic = LocalHapticFeedback.current
@@ -72,70 +84,94 @@ fun MissionCard(
     val shape = RoundedCornerShape(14.dp)
     val glowValue = glow.value
     val colors = MaterialTheme.colorScheme
+    val state = stringResource(if (completed) R.string.mission_completed else R.string.mission_pending)
+    val editLabel = stringResource(R.string.action_edit)
+    val deleteLabel = stringResource(R.string.action_delete)
 
     Surface(
         modifier = modifier.fillMaxWidth(),
         shape = shape,
-        color = lerp(colors.surface, attributeColor, 0.2f * glowValue),
+        color = lerp(colors.surface, attributeColor, 0.18f * glowValue),
         border = BorderStroke(1.dp, lerp(colors.outline, attributeColor, glowValue))
     ) {
-        Column(
-            modifier = Modifier.clickable {
-                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                onToggle()
-            }
+        Row(
+            modifier = Modifier
+                .combinedClickable(
+                    role = Role.Checkbox,
+                    onLongClickLabel = editLabel,
+                    onLongClick = {
+                        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                        onLongClick()
+                    },
+                    onClick = {
+                        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                        onToggle()
+                    }
+                )
+                .semantics {
+                    stateDescription = state
+                    // TalkBack users get edit and delete without needing the long press.
+                    customActions = listOf(
+                        CustomAccessibilityAction(editLabel) { onEdit(); true },
+                        CustomAccessibilityAction(deleteLabel) { onDelete(); true }
+                    )
+                }
+                .padding(12.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Box(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(6.dp)
-                    .background(attributeColor)
-            )
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 14.dp, vertical = 12.dp),
-                verticalAlignment = Alignment.CenterVertically
+                    .size(44.dp)
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(attributeColor.copy(alpha = 0.18f)),
+                contentAlignment = Alignment.Center
             ) {
-                Column(modifier = Modifier.weight(1f)) {
+                Icon(
+                    painter = painterResource(iconRes),
+                    contentDescription = null,
+                    tint = attributeColor,
+                    modifier = Modifier.size(24.dp)
+                )
+            }
+            Spacer(modifier = Modifier.width(12.dp))
+            Column(modifier = Modifier.weight(1f).alpha(if (completed) 0.65f else 1f)) {
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.titleMedium,
+                    color = colors.onSurface,
+                    textDecoration = if (completed) TextDecoration.LineThrough else null
+                )
+                if (subtitle != null) {
                     Text(
-                        text = title,
-                        style = MaterialTheme.typography.titleMedium,
-                        color = if (completed) colors.onSurfaceVariant else colors.onSurface,
-                        textDecoration = if (completed) TextDecoration.LineThrough else null
-                    )
-                    if (subtitle != null) {
-                        Text(
-                            text = subtitle,
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = colors.onSurfaceVariant,
-                            modifier = Modifier.padding(top = 2.dp)
-                        )
-                    }
-                    Text(
-                        text = "$attributeLabel · +$xp XP",
-                        style = MaterialTheme.typography.labelLarge,
-                        color = attributeColor,
-                        modifier = Modifier.padding(top = 4.dp)
+                        text = subtitle,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = colors.onSurfaceVariant,
+                        modifier = Modifier.padding(top = 2.dp)
                     )
                 }
-                Spacer(modifier = Modifier.width(12.dp))
-                Box(
-                    modifier = Modifier
-                        .size(28.dp)
-                        .clip(CircleShape)
-                        .background(if (completed) attributeColor else Color.Transparent)
-                        .border(2.dp, attributeColor, CircleShape),
-                    contentAlignment = Alignment.Center
-                ) {
-                    if (completed) {
-                        Icon(
-                            imageVector = Icons.Filled.Check,
-                            contentDescription = "Completada",
-                            tint = colors.background,
-                            modifier = Modifier.size(18.dp)
-                        )
-                    }
+                Text(
+                    text = stringResource(R.string.mission_xp_attribute, attributeLabel, xp),
+                    style = MaterialTheme.typography.labelLarge,
+                    color = attributeColor,
+                    modifier = Modifier.padding(top = 4.dp)
+                )
+            }
+            Spacer(modifier = Modifier.width(12.dp))
+            Box(
+                modifier = Modifier
+                    .size(28.dp)
+                    .clip(CircleShape)
+                    .background(if (completed) attributeColor else Color.Transparent)
+                    .border(2.dp, attributeColor, CircleShape),
+                contentAlignment = Alignment.Center
+            ) {
+                if (completed) {
+                    Icon(
+                        imageVector = Icons.Filled.Check,
+                        contentDescription = null,
+                        tint = colors.background,
+                        modifier = Modifier.size(18.dp)
+                    )
                 }
             }
         }

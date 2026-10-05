@@ -21,8 +21,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vidalvl.app.R
 
 /** Compact attribute summary. It dims when the attribute has been neglected (low glow). */
 @Composable
@@ -52,7 +54,7 @@ fun AttributeChip(
                 maxLines = 1
             )
             Text(
-                text = "Nv $level",
+                text = stringResource(R.string.attribute_level_short, level),
                 style = MaterialTheme.typography.labelLarge.copy(fontSize = 13.sp),
                 color = color
             )

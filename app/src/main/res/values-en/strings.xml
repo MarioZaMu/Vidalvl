@@ -1,0 +1,192 @@
+<resources>
+    <string name="app_name">Vidalvl</string>
+
+    <!-- Avatar test screen (phase 5A, replaced by the creator in 5C) -->
+    <string name="avatar_title">Avatar</string>
+    <string name="avatar_gender">Gender</string>
+    <string name="avatar_gender_male">Male</string>
+    <string name="avatar_gender_female">Female</string>
+    <string name="avatar_skin_tone">Skin tone</string>
+    <string name="avatar_hair_style">Hairstyle</string>
+    <string name="avatar_hair_color">Hair color</string>
+    <string name="avatar_content_description">Your avatar</string>
+    <string name="avatar_hair_color_option">Hair color %1$d</string>
+    <string name="avatar_create_title">Create your avatar</string>
+    <string name="avatar_edit_title">Edit your avatar</string>
+    <string name="avatar_edit">Edit avatar</string>
+    <string name="avatar_save">Save</string>
+    <string name="avatar_cancel">Cancel</string>
+    <string name="avatar_skin_tone_option">Skin tone %1$d</string>
+    <string name="avatar_hair_style_option">Hairstyle %1$d</string>
+
+    <!-- Items (phase 5D) -->
+
+    <string name="inventory_title">Inventory</string>
+    <string name="slot_hat">Hats</string>
+    <string name="slot_glasses">Glasses</string>
+    <string name="slot_cloak">Cloaks</string>
+    <string name="slot_outfit">Outfits</string>
+    <string name="item_male_only">Male avatar only</string>
+    <string name="avatar_eyes">Eyes</string>
+    <string name="avatar_eyes_option">Eyes %1$d</string>
+    <string name="item_equipped">Equipped</string>
+    <string name="item_req_level">Level %1$d</string>
+    <string name="item_req_weekly">Weekly: %1$s</string>
+    <string name="item_req_special">Special mission</string>
+    <string name="item_req_attribute">%1$s level %2$d</string>
+    <string name="item_locked_description">%1$s, locked: %2$s</string>
+
+    <string name="reward_title">New item!</string>
+    <string name="reward_title_many">New items!</string>
+    <string name="reward_hint">Equip it in the Avatar tab.</string>
+    <string name="reward_ok">Great</string>
+    <string name="item_outfit_001">Green outfit</string>
+    <string name="item_hat_011">Red cap</string>
+    <string name="item_glasses_001_1">Red glasses</string>
+    <string name="item_outfit_009">White outfit</string>
+    <string name="item_hat_005">Maid cap</string>
+    <string name="item_glasses_003_1">Small shades</string>
+    <string name="item_cloak_002">Lace cape</string>
+    <string name="item_outfit_014">Casual outfit</string>
+    <string name="item_hat_014">Black hat</string>
+    <string name="item_glasses_002_1">Cyan glasses</string>
+    <string name="item_outfit_012">Underwear</string>
+    <string name="item_hat_009">White hat</string>
+    <string name="item_cloak_004">Black cape</string>
+    <string name="item_outfit_013">Black suit</string>
+    <string name="item_glasses_005_1">Round sunglasses</string>
+    <string name="item_hat_008">White cap</string>
+    <string name="item_outfit_010">White formal outfit</string>
+    <string name="item_glasses_006_1">Wide sunglasses</string>
+    <string name="item_cloak_003">White shawl</string>
+    <string name="item_outfit_016">Office outfit</string>
+    <string name="item_hat_010">Red headband</string>
+    <string name="item_outfit_018">Teal swimsuit</string>
+    <string name="item_outfit_003">Gray armor</string>
+    <string name="item_hat_001_1">Gray helmet</string>
+    <string name="item_outfit_019">Light teal swimsuit</string>
+    <string name="item_hat_001_2">White helmet</string>
+    <string name="item_outfit_008">Blue armor</string>
+    <string name="item_hat_001_3">Blue helmet</string>
+    <string name="item_outfit_020">Red swimsuit</string>
+    <string name="item_glasses_001_2">Red and white glasses</string>
+    <string name="item_hat_006">Wide-brim hat</string>
+    <string name="item_glasses_002_2">Teal glasses</string>
+    <string name="item_outfit_007">Blue outfit</string>
+    <string name="item_glasses_004_1">Sunglasses</string>
+    <string name="item_hat_007">Witch hat</string>
+    <string name="item_outfit_015">Office suit</string>
+    <string name="item_glasses_007_1">Pink glasses</string>
+    <string name="item_cloak_005">Black cape with clasp</string>
+    <string name="item_hat_003">Golden tiara</string>
+    <string name="item_outfit_005">Explorer outfit</string>
+    <string name="item_glasses_007_2">Light pink glasses</string>
+    <string name="item_outfit_006">Adventure outfit</string>
+    <string name="item_hat_002">Orange tiara</string>
+    <string name="item_outfit_004">Green hood</string>
+    <string name="item_cloak_008">White coat</string>
+    <string name="item_outfit_021">Orange swimsuit</string>
+    <string name="item_hat_012">White wig</string>
+    <string name="item_hat_015_1">White bow</string>
+    <string name="item_outfit_002">Forest outfit</string>
+    <string name="item_hat_015_2">Gray bow</string>
+    <string name="item_hat_015_3">Red bow</string>
+    <string name="item_outfit_011">Dark outfit</string>
+    <string name="item_hat_016_1">White bow (right)</string>
+    <string name="item_hat_016_2">Gray bow (right)</string>
+    <string name="item_hat_016_3">Red bow (right)</string>
+    <string name="item_outfit_017">Leaf outfit</string>
+    <string name="item_hat_013">Pumpkin</string>
+    <string name="item_cloak_006">Pink scarf</string>
+    <string name="item_cloak_007">Green scarf</string>
+    <string name="item_hat_017_1">White bow (left)</string>
+    <string name="item_hat_017_2">Gray bow (left)</string>
+    <string name="item_hat_017_3">Red bow (left)</string>
+
+    <!-- Attributes -->
+    <string name="attribute_body">Body</string>
+    <string name="attribute_mind">Mind</string>
+    <string name="attribute_discipline">Discipline</string>
+    <string name="attribute_social">Social</string>
+    <string name="attribute_level_short">Lv %1$d</string>
+
+    <!-- Missions screen (phase 4B) -->
+    <string name="missions_title">Missions</string>
+    <string name="missions_tab_daily">Daily</string>
+    <string name="missions_tab_weekly">Weekly</string>
+    <string name="missions_active">Active (%1$d)</string>
+    <string name="missions_completed">Completed (%1$d)</string>
+    <string name="mission_xp_attribute">%1$s · +%2$d XP</string>
+    <string name="mission_photo_hint">Will be verified with a photo</string>
+    <string name="mission_completed">Completed</string>
+    <string name="mission_pending">Pending</string>
+    <string name="mission_xp_pop">+%1$d XP · %2$s</string>
+
+    <!-- Player header -->
+    <string name="player_default_name">Adventurer</string>
+    <string name="player_level">Lv. %1$d</string>
+    <string name="player_xp_label">Experience</string>
+    <string name="player_xp_value">%1$d/%2$d XP</string>
+    <string name="player_today">Today</string>
+    <string name="player_today_description">Today: %1$d of %2$d daily missions</string>
+    <string name="stat_streak">Streak</string>
+    <string name="stat_streak_value">%1$d d</string>
+    <string name="stat_total_xp">Total XP</string>
+    <string name="stat_items">Items</string>
+    <string name="stat_items_value">%1$d/%2$d</string>
+
+    <!-- Avatar creator: name -->
+    <string name="avatar_name">Name</string>
+    <string name="avatar_name_counter">%1$d/%2$d</string>
+
+    <!-- Create / edit / delete missions (phase 4C) -->
+    <string name="action_save">Save</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_delete">Delete</string>
+    <string name="mission_add">New mission</string>
+    <string name="mission_edit_title">Edit mission</string>
+    <string name="mission_field_title">Title</string>
+    <string name="mission_field_description">Description (optional)</string>
+    <string name="mission_field_attribute">Attribute</string>
+    <string name="mission_field_type">Type</string>
+    <string name="mission_type_daily">Daily</string>
+    <string name="mission_type_weekly">Weekly</string>
+    <string name="mission_type_daily_xp">Daily · +%1$d XP</string>
+    <string name="mission_type_weekly_xp">Weekly · +%1$d XP</string>
+    <string name="mission_fixed_info">%1$s · %2$s</string>
+    <string name="mission_fixed_hint">Attribute and type can\'t be changed.</string>
+    <string name="mission_delete_title">Delete this mission?</string>
+    <string name="mission_delete_text">Your XP, levels and history are kept.</string>
+    <string name="field_counter">%1$d/%2$d</string>
+
+    <!-- Photo verification (phase 6) -->
+    <string name="mission_requires_photo">Verify with a photo</string>
+    <string name="mission_requires_photo_hint">You\'ll be asked for a photo when completing it. The photo isn\'t saved on your phone.</string>
+    <string name="photo_title_hint">Show: %1$s</string>
+    <string name="photo_take">Take photo</string>
+    <string name="photo_close">Close</string>
+    <string name="photo_retake">Retake</string>
+    <string name="photo_use">Use photo</string>
+    <string name="photo_retry">Try again</string>
+    <string name="photo_checking">Checking your photo…</string>
+    <string name="photo_permission_title">Camera access needed</string>
+    <string name="photo_permission_text">This mission is verified with a photo. The photo isn\'t saved on your phone.</string>
+    <string name="photo_permission_retry">Allow camera</string>
+    <string name="photo_permission_settings">Open settings</string>
+    <string name="photo_camera_error">The camera couldn\'t be opened.</string>
+    <string name="photo_capture_error">Couldn\'t take the photo. Try again.</string>
+    <string name="photo_problem_title">Not quite yet</string>
+    <string name="photo_failed_network">No connection. Check your internet and try again.</string>
+    <string name="photo_failed_service">The verification service isn\'t responding. Try again in a moment.</string>
+    <string name="photo_failed_unreadable">I couldn\'t understand the answer. Try again.</string>
+    <string name="photo_failed_limit">You reached today\'s verification limit.</string>
+    <string name="photo_failed_not_configured">AI verification isn\'t set up in this version of the app.</string>
+    <string name="photo_rejected_default">I couldn\'t see that the mission is done. Try another photo.</string>
+    <string name="photo_skip">Complete without checking</string>
+    <string name="photo_skip_hint">If you think your photo is fine, you can complete it anyway. We trust you.</string>
+    <string name="photo_consent_title">Your photo is sent to Google</string>
+    <string name="photo_consent_text">To check whether you did the mission, the photo is sent to Gemini, Google\'s AI service. On the free tier, Google may use the content to improve its products. Avoid showing other people or private information. The photo isn\'t saved on your phone or in this app.</string>
+    <string name="photo_consent_accept">Got it, continue</string>
+    <string name="photo_consent_decline">Not now</string>
+</resources>

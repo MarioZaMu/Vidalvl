@@ -19,14 +19,17 @@ Tested on a Xiaomi phone (USB install enabled) and Pixel 8 emulator (API 37).
 
 ## Game rules (keep)
 - Attributes: BODY, MIND, DISCIPLINE, SOCIAL. Missions: DAILY, WEEKLY (weeks Monday-Sunday).
-- xpForLevel(n) = 100 + 50*(n-1). Glow: 0.6 untrained, 1 grace day, drops to 0.3 in 7 days, completing a mission restores 1.0.
+- xpForLevel(n) = 100 + 20*(n-1). Mission XP: daily 8, weekly 15. Glow: 0.6 untrained, 1 grace day, drops to 0.3 in 7 days, completing a mission restores 1.0.
 - NO punishment: XP and level are never lost. Undoing a mission never removes rewards already earned.
 
 ## New direction (approved)
 - Avatar: pixel art 32x32, layers drawn on Canvas with nearest-neighbor (FilterQuality.None), breathing = 1px bob in code.
-  Customizable: gender (different basic outfit), skin tone (5), hairstyle (6), hair color (gray sprite tinted with BlendMode.Modulate).
-- Sprite layers in res/drawable-nodpi: body_{male|female}_{1..5}, eyes_*, outfit_*_basic, hair_{1..6}_front, hair_{n}_back (optional).
-  Draw order: hair back, body, eyes, outfit, hair front, (later: hat, glasses, cloak).
+  Customizable: gender (different basic outfit), skin tone (5), eyes (10), hairstyle (6), hair color (gray sprite tinted with BlendMode.Modulate).
+- Sprite layers in res/drawable-nodpi: body_{male|female}_{1..5}, eyes_{male|female}_{01..10}, outfit_*_basic,
+  hair_{1..6}_front, hair_{n}_back (optional), hair_{n}_hat_front / hair_{n}_hat_back (trimmed hair under hats; back falls back to the normal one).
+  Items: hat_NNN[_v], glasses_NNN_v, cloak_NNN + cloak_NNN_back, outfit_{male|female}_NNN (paired by number; 020 and 021 are male only).
+  Draw order: cloak back, hair back, body, eyes, outfit, hair front, hat, glasses, cloak.
+  Items have a HairEffect (NONE / TRIMMED / HIDDEN). Catalog: 62 items (20 by total level 2..21, 4 attributes x 9 weekly, 6 special for reward missions, none wired to a mission yet).
 - Rewards: one item per total level (fixed table, deterministic), next item of the attribute for each weekly mission (once per week),
   one special fixed item for "reward" missions (once). Items belong to an attribute; rare ones require a level in that attribute.
   Items live in a Kotlin catalog (not a DB table). Inventory + equipped-by-slot are Room tables.

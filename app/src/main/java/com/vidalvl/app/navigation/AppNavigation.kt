@@ -14,7 +14,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.vidalvl.app.ui.screens.creature.CreatureScreen
+import com.vidalvl.app.ui.screens.avatar.AvatarScreen
 import com.vidalvl.app.ui.screens.missions.MissionsScreen
 import com.vidalvl.app.ui.screens.profile.ProfileScreen
 import com.vidalvl.app.ui.screens.reflection.ReflectionScreen
@@ -57,7 +57,7 @@ fun AppNavigation(
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screen.Missions.route) { MissionsScreen() }
-            composable(Screen.Creature.route) { CreatureScreen() }
+            composable(Screen.Avatar.route) { AvatarScreen() }
             composable(Screen.Reflection.route) { ReflectionScreen() }
             composable(Screen.Profile.route) { ProfileScreen(themeMode, onThemeModeChange) }
         }
