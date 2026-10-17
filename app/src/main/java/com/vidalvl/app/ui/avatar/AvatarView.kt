@@ -62,20 +62,53 @@ private val FEMALE_EYES = intArrayOf(
 )
 
 private val HAIR_FRONT = intArrayOf(
-    R.drawable.hair_1_front, R.drawable.hair_2_front, R.drawable.hair_3_front,
-    R.drawable.hair_4_front, R.drawable.hair_5_front, R.drawable.hair_6_front
+    R.drawable.hair_1_front, R.drawable.hair_2_front, R.drawable.hair_3_front, R.drawable.hair_4_front,
+    R.drawable.hair_5_front, R.drawable.hair_6_front, R.drawable.hair_7_front, R.drawable.hair_8_front,
+    R.drawable.hair_9_front, R.drawable.hair_10_front, R.drawable.hair_11_front,
+    R.drawable.hair_12_front, R.drawable.hair_13_front, R.drawable.hair_14_front,
+    R.drawable.hair_15_front, R.drawable.hair_16_front, R.drawable.hair_17_front,
+    R.drawable.hair_18_front, R.drawable.hair_19_front, R.drawable.hair_20_front,
+    R.drawable.hair_21_front, R.drawable.hair_22_front, R.drawable.hair_23_front,
+    R.drawable.hair_24_front, R.drawable.hair_25_front, R.drawable.hair_26_front,
+    R.drawable.hair_27_front, R.drawable.hair_28_front, R.drawable.hair_29_front,
+    R.drawable.hair_30_front, R.drawable.hair_31_front, R.drawable.hair_32_front,
+    R.drawable.hair_33_front
 )
 private val HAIR_FRONT_TRIMMED = intArrayOf(
     R.drawable.hair_1_hat_front, R.drawable.hair_2_hat_front, R.drawable.hair_3_hat_front,
-    R.drawable.hair_4_hat_front, R.drawable.hair_5_hat_front, R.drawable.hair_6_hat_front
+    R.drawable.hair_4_hat_front, R.drawable.hair_5_hat_front, R.drawable.hair_6_hat_front,
+    R.drawable.hair_7_hat_front, R.drawable.hair_8_hat_front, R.drawable.hair_9_hat_front,
+    R.drawable.hair_10_hat_front, R.drawable.hair_11_hat_front, R.drawable.hair_12_hat_front,
+    R.drawable.hair_13_hat_front, R.drawable.hair_14_hat_front, R.drawable.hair_15_hat_front,
+    R.drawable.hair_16_hat_front, R.drawable.hair_17_hat_front, R.drawable.hair_18_hat_front,
+    R.drawable.hair_19_hat_front, R.drawable.hair_20_hat_front, R.drawable.hair_21_hat_front,
+    R.drawable.hair_22_hat_front, R.drawable.hair_23_hat_front, R.drawable.hair_24_hat_front,
+    R.drawable.hair_25_hat_front, R.drawable.hair_26_hat_front, R.drawable.hair_27_hat_front,
+    R.drawable.hair_28_hat_front, R.drawable.hair_29_hat_front, R.drawable.hair_30_hat_front,
+    R.drawable.hair_31_hat_front, R.drawable.hair_32_hat_front, R.drawable.hair_33_hat_front
 )
 
 // Only some hairstyles have a sprite behind the body.
 private val HAIR_BACK = mapOf(
-    2 to R.drawable.hair_2_back, 3 to R.drawable.hair_3_back,
-    4 to R.drawable.hair_4_back, 6 to R.drawable.hair_6_back
+    2 to R.drawable.hair_2_back, 3 to R.drawable.hair_3_back, 4 to R.drawable.hair_4_back,
+    6 to R.drawable.hair_6_back, 8 to R.drawable.hair_8_back, 9 to R.drawable.hair_9_back,
+    10 to R.drawable.hair_10_back, 12 to R.drawable.hair_12_back, 14 to R.drawable.hair_14_back,
+    16 to R.drawable.hair_16_back, 20 to R.drawable.hair_20_back, 21 to R.drawable.hair_21_back,
+    23 to R.drawable.hair_23_back, 24 to R.drawable.hair_24_back, 26 to R.drawable.hair_26_back,
+    27 to R.drawable.hair_27_back, 28 to R.drawable.hair_28_back, 31 to R.drawable.hair_31_back,
+    32 to R.drawable.hair_32_back, 33 to R.drawable.hair_33_back
 )
-private val HAIR_BACK_TRIMMED = mapOf(2 to R.drawable.hair_2_hat_back, 3 to R.drawable.hair_3_hat_back)
+private val HAIR_BACK_TRIMMED = mapOf(
+    2 to R.drawable.hair_2_hat_back, 3 to R.drawable.hair_3_hat_back, 8 to R.drawable.hair_8_hat_back,
+    9 to R.drawable.hair_9_hat_back, 10 to R.drawable.hair_10_hat_back,
+    12 to R.drawable.hair_12_hat_back, 14 to R.drawable.hair_14_hat_back,
+    16 to R.drawable.hair_16_hat_back, 20 to R.drawable.hair_20_hat_back,
+    21 to R.drawable.hair_21_hat_back, 23 to R.drawable.hair_23_hat_back,
+    24 to R.drawable.hair_24_hat_back, 26 to R.drawable.hair_26_hat_back,
+    27 to R.drawable.hair_27_hat_back, 28 to R.drawable.hair_28_hat_back,
+    31 to R.drawable.hair_31_hat_back, 32 to R.drawable.hair_32_hat_back,
+    33 to R.drawable.hair_33_hat_back
+)
 
 private fun hairEffectOf(equipment: Map<ItemSlot, CatalogItem>): HairEffect =
     equipment.values.maxOfOrNull { it.hairEffect } ?: HairEffect.NONE

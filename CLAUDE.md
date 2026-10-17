@@ -24,9 +24,9 @@ Tested on a Xiaomi phone (USB install enabled) and Pixel 8 emulator (API 37).
 
 ## New direction (approved)
 - Avatar: pixel art 32x32, layers drawn on Canvas with nearest-neighbor (FilterQuality.None), breathing = 1px bob in code.
-  Customizable: gender (different basic outfit), skin tone (5), eyes (10), hairstyle (6), hair color (gray sprite tinted with BlendMode.Modulate).
+  Customizable: gender (different basic outfit), skin tone (5), eyes (10), hairstyle (33), hair color (gray sprite tinted with BlendMode.Modulate).
 - Sprite layers in res/drawable-nodpi: body_{male|female}_{1..5}, eyes_{male|female}_{01..10}, outfit_*_basic,
-  hair_{1..6}_front, hair_{n}_back (optional), hair_{n}_hat_front / hair_{n}_hat_back (trimmed hair under hats; back falls back to the normal one).
+  hair_{1..33}_front, hair_{n}_back (optional), hair_{n}_hat_front / hair_{n}_hat_back (trimmed hair under hats; back falls back to the normal one).
   Items: hat_NNN[_v], glasses_NNN_v, cloak_NNN + cloak_NNN_back, outfit_{male|female}_NNN (paired by number; 020 and 021 are male only).
   Draw order: cloak back, hair back, body, eyes, outfit, hair front, hat, glasses, cloak.
   Items have a HairEffect (NONE / TRIMMED / HIDDEN). Catalog: 62 items (20 by total level 2..21, 4 attributes x 9 weekly, 6 special for reward missions, none wired to a mission yet).

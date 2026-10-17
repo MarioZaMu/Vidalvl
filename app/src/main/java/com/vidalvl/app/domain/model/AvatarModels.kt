@@ -18,7 +18,7 @@ data class AvatarConfig(
     companion object {
         const val MAX_NAME_LENGTH = 16
         const val SKIN_TONES = 5
-        const val HAIR_STYLES = 6
+        const val HAIR_STYLES = 33
         const val EYE_STYLES = 10
         const val DEFAULT_HAIR_COLOR = 0xFF6B4423.toInt()
 

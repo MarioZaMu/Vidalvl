@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -52,6 +53,7 @@ import com.vidalvl.app.ui.components.SecondaryButton
 import com.vidalvl.app.ui.components.pixelShadow
 
 private val OptionShape = RoundedCornerShape(12.dp)
+private const val HAIR_COLUMNS = 5
 
 /**
  * Avatar creator. The preview stays pinned on top while the options scroll;
@@ -172,7 +174,7 @@ fun AvatarCreatorScreen(
 
             OptionSection(stringResource(R.string.avatar_hair_style)) {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    (1..AvatarConfig.HAIR_STYLES).chunked(3).forEach { rowStyles ->
+                    (1..AvatarConfig.HAIR_STYLES).chunked(HAIR_COLUMNS).forEach { rowStyles ->
                         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                             rowStyles.forEach { style ->
                                 PreviewOption(
@@ -183,6 +185,8 @@ fun AvatarCreatorScreen(
                                     onClick = { hairStyle = style }
                                 )
                             }
+                            // Keeps the last, shorter row the same tile size as the others.
+                            repeat(HAIR_COLUMNS - rowStyles.size) { Spacer(Modifier.weight(1f)) }
                         }
                     }
                 }
