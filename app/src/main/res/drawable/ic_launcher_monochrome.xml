@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- One-color silhouette of the logo for themed icons (Android 13+), built from the 48x48 pixel grid. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M18,13h3v1h-3z M27,13h3v1h-3z M34,13h1v1h-1z M15,14h8v1h-8z M25,14h8v1h-8z M34,14h1v1h-1z M14,15h23v1h-23z M14,16h21v1h-21z M13,17h22v1h-22z M13,18h22v1h-22z M13,19h22v1h-22z M13,20h22v1h-22z M13,21h22v1h-22z M13,22h22v1h-22z M14,23h20v1h-20z M14,24h20v1h-20z M15,25h18v1h-18z M15,26h18v1h-18z M16,27h16v1h-16z M17,28h14v1h-14z M18,29h12v1h-12z M19,30h10v1h-10z M20,31h8v1h-8z M14,32h1v1h-1z M21,32h6v1h-6z M13,33h3v1h-3z M23,33h2v1h-2z M33,33h1v1h-1z M14,34h1v1h-1z M32,34h3v1h-3z M33,35h1v1h-1z" />
+</vector>
