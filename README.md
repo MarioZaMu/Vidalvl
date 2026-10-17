@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/vidalvl_wordmark.png" width="420" alt="Vidalvl">
+</p>
+
 # Vidalvl
 
 App Android de hábitos con estilo RPG. Cada misión que completas da experiencia a uno de cuatro atributos
