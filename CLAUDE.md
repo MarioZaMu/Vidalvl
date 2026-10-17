@@ -45,6 +45,8 @@ Tested on a Xiaomi phone (USB install enabled) and Pixel 8 emulator (API 37).
 Dark "dark fantasy": bg 0E0D12, cards 1A1822, borders 3A3548, primary B51A2B (crimson), accent F0A04B (ember). Never use the primary as text on dark: use `VidalvlTheme.attributeColors.accentText`.
 Light "Pergamino": bg F6EFE0, cards EADFC8, primary 9E1B2B, accent C98A1B.
 Titles in Cinzel (bundled, OFL, third_party/fonts); body in the system font. Dark theme draws a pixel-art night sky (NightSky) behind transparent screens; cards and buttons stay opaque.
+Light theme draws a pixel-art day sky (DaySky: blue gradient fading into the parchment, pixel sun, 4 drifting clouds); both skies stay still when system animations are off (`animationsEnabled()` in Motion.kt).
+Main cards use `PixelCornerShape` (staircase corners) plus `Modifier.pixelShadow` (hard offset shadow); completing a mission fires a `PixelBurst`. Buttons, small badges and creator thumbnails keep rounded corners.
 ContrastTest enforces 4.5:1 for text in both modes: change a color, run the tests.
 
 ## Progress

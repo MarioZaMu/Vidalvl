@@ -1,9 +1,10 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="24dp"
     android:height="24dp"
-    android:viewportWidth="24"
-    android:viewportHeight="24">
+    android:viewportWidth="12"
+    android:viewportHeight="12">
+    <!-- Pixel art on a 12x12 grid; white so the Icon tint sets the color in both themes. -->
     <path
         android:fillColor="#FFFFFFFF"
-        android:pathData="M12,2 L20,5 V11 C20,16 16.5,20 12,22 C7.5,20 4,16 4,11 V5 Z" />
+        android:pathData="M1,1h10v1h-10z M1,2h10v1h-10z M1,3h8v1h-8z M10,3h1v1h-1z M1,4h7v1h-7z M9,4h2v1h-2z M1,5h2v1h-2z M4,5h3v1h-3z M8,5h3v1h-3z M1,6h3v1h-3z M5,6h1v1h-1z M7,6h4v1h-4z M1,7h4v1h-4z M6,7h5v1h-5z M2,8h8v1h-8z M3,9h6v1h-6z M4,10h4v1h-4z M5,11h2v1h-2z" />
 </vector>

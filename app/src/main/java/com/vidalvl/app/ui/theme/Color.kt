@@ -16,6 +16,12 @@ val DarkError = Color(0xFFFF8A8A)
 
 // Light mode: parchment. Cream, crimson and old gold.
 val LightBackground = Color(0xFFF6EFE0)
+
+// Day sky behind the light theme (see DaySky); text must keep 4.5:1 over SkyTop (ContrastTest).
+val SkyTop = Color(0xFFBDE0F0)
+val SunColor = Color(0xFFF2B63C)
+val CloudColor = Color(0xFFFFFFFF)
+val CloudShade = Color(0xFFDDE8EE)
 val LightSurface = Color(0xFFEADFC8)
 val LightSurfaceVariant = Color(0xFFE0D3B6)
 val LightOutline = Color(0xFFB5A586)

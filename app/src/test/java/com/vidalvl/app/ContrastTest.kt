@@ -7,6 +7,7 @@ import com.vidalvl.app.ui.theme.DarkAttributeColors
 import com.vidalvl.app.ui.theme.DarkColorScheme
 import com.vidalvl.app.ui.theme.LightAttributeColors
 import com.vidalvl.app.ui.theme.LightColorScheme
+import com.vidalvl.app.ui.theme.SkyTop
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import kotlin.math.pow
@@ -52,6 +53,15 @@ class ContrastTest {
         check(failures, "$mode onBackground on background", scheme.onBackground, scheme.background)
         check(failures, "$mode onPrimary on primary", scheme.onPrimary, scheme.primary)
         return failures
+    }
+
+    @Test
+    fun light_text_is_readable_over_the_sky_top() {
+        val failures = mutableListOf<String>()
+        check(failures, "onBackground over sky", LightColorScheme.onBackground, SkyTop)
+        check(failures, "secondary text over sky", LightColorScheme.onSurfaceVariant, SkyTop)
+        check(failures, "accent text over sky", LightAttributeColors.accentText, SkyTop)
+        assertTrue(failures.joinToString("\n"), failures.isEmpty())
     }
 
     @Test

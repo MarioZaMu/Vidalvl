@@ -1,6 +1,5 @@
 package com.vidalvl.app.ui.components
 
-import android.provider.Settings
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
@@ -16,11 +15,9 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import java.util.Random
 import kotlin.math.PI
-import kotlin.math.floor
 import kotlin.math.sin
 
 private const val STAR_COUNT = 70
@@ -46,10 +43,7 @@ private val MoonColor = Color(0xFFE8DFC9)
  */
 @Composable
 fun NightSky(modifier: Modifier = Modifier) {
-    val context = LocalContext.current
-    val animated = remember {
-        Settings.Global.getFloat(context.contentResolver, Settings.Global.ANIMATOR_DURATION_SCALE, 1f) > 0f
-    }
+    val animated = animationsEnabled()
     val stars = remember { buildStars() }
     val twinkle: State<Float>? = if (animated) {
         rememberInfiniteTransition(label = "stars").animateFloat(
@@ -77,8 +71,6 @@ fun NightSky(modifier: Modifier = Modifier) {
     }
 }
 
-private fun snap(value: Float, step: Float): Float = floor(value / step) * step
-
 /** A crescent: a disc with a second, offset disc cut out of it, on a grid so it stays pixelated. */
 private fun DrawScope.drawMoon(cell: Float) {
     val left = size.width - cell * MOON_GRID - 20.dp.toPx()
@@ -98,12 +90,6 @@ private fun DrawScope.drawMoon(cell: Float) {
             }
         }
     }
-}
-
-private fun dist(x1: Float, y1: Float, x2: Float, y2: Float): Float {
-    val dx = x1 - x2
-    val dy = y1 - y2
-    return kotlin.math.sqrt(dx * dx + dy * dy)
 }
 
 /** Fixed positions (seeded), so the sky is the same every time. */

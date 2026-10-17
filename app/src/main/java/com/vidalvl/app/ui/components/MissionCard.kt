@@ -15,8 +15,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.combinedClickable
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Icon
@@ -25,7 +23,10 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -68,11 +69,13 @@ fun MissionCard(
 ) {
     val haptic = LocalHapticFeedback.current
     val glow = remember { Animatable(if (completed) RESTING_GLOW else 0f) }
+    var burst by remember { mutableIntStateOf(0) }
 
     LaunchedEffect(completed) {
         if (completed) {
             // Pulse only when it was just completed (not when the screen reopens).
             if (glow.value < RESTING_GLOW) {
+                burst++
                 glow.animateTo(1f, tween(300))
                 glow.animateTo(RESTING_GLOW, tween(1000))
             }
@@ -81,7 +84,8 @@ fun MissionCard(
         }
     }
 
-    val shape = RoundedCornerShape(14.dp)
+    val shape = remember { PixelCornerShape(unit = 3.dp, steps = 2) }
+    val checkShape = remember { PixelCornerShape(unit = 4.dp, steps = 2) }
     val glowValue = glow.value
     val colors = MaterialTheme.colorScheme
     val state = stringResource(if (completed) R.string.mission_completed else R.string.mission_pending)
@@ -89,7 +93,7 @@ fun MissionCard(
     val deleteLabel = stringResource(R.string.action_delete)
 
     Surface(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth().pixelShadow(shape, colors.outline),
         shape = shape,
         color = lerp(colors.surface, attributeColor, 0.18f * glowValue),
         border = BorderStroke(1.dp, lerp(colors.outline, attributeColor, glowValue))
@@ -122,7 +126,7 @@ fun MissionCard(
             Box(
                 modifier = Modifier
                     .size(44.dp)
-                    .clip(RoundedCornerShape(12.dp))
+                    .clip(PixelCornerShape(unit = 3.dp, steps = 1))
                     .background(attributeColor.copy(alpha = 0.18f)),
                 contentAlignment = Alignment.Center
             ) {
@@ -157,22 +161,25 @@ fun MissionCard(
                 )
             }
             Spacer(modifier = Modifier.width(12.dp))
-            Box(
-                modifier = Modifier
-                    .size(28.dp)
-                    .clip(CircleShape)
-                    .background(if (completed) attributeColor else Color.Transparent)
-                    .border(2.dp, attributeColor, CircleShape),
-                contentAlignment = Alignment.Center
-            ) {
-                if (completed) {
-                    Icon(
-                        imageVector = Icons.Filled.Check,
-                        contentDescription = null,
-                        tint = colors.background,
-                        modifier = Modifier.size(18.dp)
-                    )
+            Box(modifier = Modifier.size(28.dp), contentAlignment = Alignment.Center) {
+                Box(
+                    modifier = Modifier
+                        .size(28.dp)
+                        .clip(checkShape)
+                        .background(if (completed) attributeColor else Color.Transparent)
+                        .border(2.dp, attributeColor, checkShape),
+                    contentAlignment = Alignment.Center
+                ) {
+                    if (completed) {
+                        Icon(
+                            imageVector = Icons.Filled.Check,
+                            contentDescription = null,
+                            tint = colors.background,
+                            modifier = Modifier.size(18.dp)
+                        )
+                    }
                 }
+                PixelBurst(trigger = burst, color = attributeColor)
             }
         }
     }

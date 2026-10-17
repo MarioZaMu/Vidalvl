@@ -10,10 +10,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,11 +30,13 @@ import com.vidalvl.app.ui.theme.label
 @Composable
 fun MotivationBanner(message: MotivationMessage, modifier: Modifier = Modifier) {
     val text = motivationText(message)
+    val shape = remember { PixelCornerShape(unit = 3.dp, steps = 1) }
     Row(
         modifier = modifier
             .fillMaxWidth()
+            .pixelShadow(shape, MaterialTheme.colorScheme.outline)
             .height(IntrinsicSize.Min)
-            .clip(RoundedCornerShape(12.dp))
+            .clip(shape)
             .background(MaterialTheme.colorScheme.surfaceVariant),
         verticalAlignment = Alignment.CenterVertically
     ) {

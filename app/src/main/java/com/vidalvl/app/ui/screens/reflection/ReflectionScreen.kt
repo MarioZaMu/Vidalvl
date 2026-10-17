@@ -28,6 +28,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -49,7 +50,9 @@ import com.vidalvl.app.domain.model.ItemCatalog
 import com.vidalvl.app.domain.model.TimelineEvent
 import com.vidalvl.app.domain.model.WeekSummary
 import com.vidalvl.app.ui.avatar.ItemSprite
+import com.vidalvl.app.ui.components.PixelCornerShape
 import com.vidalvl.app.ui.components.SegmentedTabs
+import com.vidalvl.app.ui.components.pixelShadow
 import com.vidalvl.app.ui.components.StatTile
 import com.vidalvl.app.ui.theme.VidalvlTheme
 import com.vidalvl.app.ui.theme.descriptionRes
@@ -120,9 +123,10 @@ fun ReflectionScreen(viewModel: ReflectionViewModel = viewModel()) {
 
 @Composable
 private fun WeekCard(week: WeekSummary) {
+    val shape = remember { PixelCornerShape(unit = 3.dp, steps = 2) }
     Surface(
-        modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(16.dp),
+        modifier = Modifier.fillMaxWidth().pixelShadow(shape, MaterialTheme.colorScheme.outline),
+        shape = shape,
         color = MaterialTheme.colorScheme.surface,
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline)
     ) {
@@ -222,12 +226,14 @@ private fun EventRow(event: TimelineEvent, zone: ZoneId) {
         .withLocale(currentLocale()).withZone(zone)
         .format(Instant.ofEpochMilli(event.millis))
 
+    val shape = remember { PixelCornerShape(unit = 3.dp, steps = 1) }
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(12.dp))
+            .pixelShadow(shape, MaterialTheme.colorScheme.outline)
+            .clip(shape)
             .background(MaterialTheme.colorScheme.surface)
-            .border(1.dp, MaterialTheme.colorScheme.outline, RoundedCornerShape(12.dp))
+            .border(1.dp, MaterialTheme.colorScheme.outline, shape)
             .padding(10.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp)
@@ -310,9 +316,10 @@ private fun AchievementCard(row: AchievementRowUi, zone: ZoneId) {
     val prize = row.achievement.rewardItemId?.let { ItemCatalog.byId(it) }
     val locale = currentLocale()
 
+    val shape = remember { PixelCornerShape(unit = 3.dp, steps = 2) }
     Surface(
-        modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(14.dp),
+        modifier = Modifier.fillMaxWidth().pixelShadow(shape, colors.outline),
+        shape = shape,
         color = colors.surface,
         border = BorderStroke(if (row.unlocked) 2.dp else 1.dp, if (row.unlocked) colors.primary else colors.outline)
     ) {

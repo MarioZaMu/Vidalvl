@@ -25,6 +25,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -45,8 +46,10 @@ import com.vidalvl.app.domain.model.CatalogItem
 import com.vidalvl.app.domain.model.Gender
 import com.vidalvl.app.domain.model.ItemSlot
 import com.vidalvl.app.ui.avatar.AvatarView
+import com.vidalvl.app.ui.components.PixelCornerShape
 import com.vidalvl.app.ui.components.PrimaryButton
 import com.vidalvl.app.ui.components.SecondaryButton
+import com.vidalvl.app.ui.components.pixelShadow
 
 private val OptionShape = RoundedCornerShape(12.dp)
 
@@ -87,11 +90,13 @@ fun AvatarCreatorScreen(
             style = MaterialTheme.typography.headlineLarge
         )
 
+        val cardShape = remember { PixelCornerShape(unit = 3.dp, steps = 2) }
         Surface(
             modifier = Modifier
                 .fillMaxWidth()
-                .border(1.dp, MaterialTheme.colorScheme.outline, RoundedCornerShape(16.dp)),
-            shape = RoundedCornerShape(16.dp),
+                .pixelShadow(cardShape, MaterialTheme.colorScheme.outline)
+                .border(1.dp, MaterialTheme.colorScheme.outline, cardShape),
+            shape = cardShape,
             color = MaterialTheme.colorScheme.surface
         ) {
             Box(modifier = Modifier.padding(12.dp), contentAlignment = Alignment.Center) {

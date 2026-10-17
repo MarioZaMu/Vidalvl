@@ -70,6 +70,7 @@ import com.vidalvl.app.domain.model.MotivationRules
 import com.vidalvl.app.ui.avatar.AvatarView
 import com.vidalvl.app.ui.avatar.ItemSprite
 import com.vidalvl.app.ui.components.MissionCard
+import com.vidalvl.app.ui.components.PixelCornerShape
 import com.vidalvl.app.ui.components.MotivationBanner
 import com.vidalvl.app.ui.components.PlayerHeader
 import com.vidalvl.app.ui.theme.VidalvlTheme
@@ -563,7 +564,7 @@ private fun NewItemsDialog(items: List<CatalogItem>, onDismiss: () -> Unit) {
 
 @Composable
 private fun MissionTabs(selectedTab: Int, onSelect: (Int) -> Unit) {
-    val shape = RoundedCornerShape(12.dp)
+    val shape = remember { PixelCornerShape(unit = 3.dp, steps = 1) }
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(8.dp)

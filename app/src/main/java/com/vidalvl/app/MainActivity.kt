@@ -20,6 +20,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import com.vidalvl.app.navigation.AppRoot
+import com.vidalvl.app.ui.components.DaySky
 import com.vidalvl.app.ui.components.NightSky
 import com.vidalvl.app.ui.theme.ThemeMode
 import com.vidalvl.app.ui.theme.ThemeStorage
@@ -47,6 +48,7 @@ class MainActivity : ComponentActivity() {
                 // The sky sits behind everything; the screens draw on top with transparent backgrounds.
                 Box(modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
                     if (darkTheme) NightSky(modifier = Modifier.fillMaxSize())
+                    else DaySky(modifier = Modifier.fillMaxSize())
                     // With no opaque Surface around, text would default to black: set the base text color here.
                     CompositionLocalProvider(LocalContentColor provides MaterialTheme.colorScheme.onBackground) {
                         AppRoot(

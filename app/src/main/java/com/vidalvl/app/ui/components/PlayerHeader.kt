@@ -57,9 +57,9 @@ fun PlayerHeader(
     modifier: Modifier = Modifier,
     avatar: @Composable () -> Unit
 ) {
-    val shape = RoundedCornerShape(16.dp)
+    val shape = PixelCornerShape(unit = 3.dp, steps = 2)
     Surface(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth().pixelShadow(shape, MaterialTheme.colorScheme.outline),
         shape = shape,
         color = MaterialTheme.colorScheme.surface,
         border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline)

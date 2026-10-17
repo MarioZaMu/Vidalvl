@@ -24,6 +24,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -52,11 +53,13 @@ import com.vidalvl.app.domain.model.ItemSlot
 import com.vidalvl.app.domain.model.ItemUnlock
 import com.vidalvl.app.ui.avatar.AvatarView
 import com.vidalvl.app.ui.components.LevelPill
+import com.vidalvl.app.ui.components.PixelCornerShape
 import com.vidalvl.app.ui.components.PrimaryButton
 import com.vidalvl.app.ui.components.RadarChart
 import com.vidalvl.app.ui.components.RadarEntry
 import com.vidalvl.app.ui.components.SecondaryButton
 import com.vidalvl.app.ui.components.StatBar
+import com.vidalvl.app.ui.components.pixelShadow
 import com.vidalvl.app.ui.screens.missions.AttributeUi
 import com.vidalvl.app.ui.theme.VidalvlTheme
 import com.vidalvl.app.ui.theme.forAttribute
@@ -120,11 +123,13 @@ private fun AvatarHome(
     ) {
         Text(stringResource(R.string.avatar_title), style = MaterialTheme.typography.headlineLarge)
 
+        val cardShape = remember { PixelCornerShape(unit = 3.dp, steps = 2) }
         Surface(
             modifier = Modifier
                 .fillMaxWidth()
-                .border(1.dp, MaterialTheme.colorScheme.outline, RoundedCornerShape(16.dp)),
-            shape = RoundedCornerShape(16.dp),
+                .pixelShadow(cardShape, MaterialTheme.colorScheme.outline)
+                .border(1.dp, MaterialTheme.colorScheme.outline, cardShape),
+            shape = cardShape,
             color = MaterialTheme.colorScheme.surface
         ) {
             Column(
