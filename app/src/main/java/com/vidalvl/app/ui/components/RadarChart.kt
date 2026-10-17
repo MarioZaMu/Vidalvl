@@ -93,21 +93,23 @@ fun RadarChart(entries: List<RadarEntry>, modifier: Modifier = Modifier) {
             Alignment.TopCenter, Alignment.CenterEnd, Alignment.BottomCenter, Alignment.CenterStart
         )
         entries.forEachIndexed { index, entry ->
-            Column(
-                modifier = Modifier.align(alignments[index % alignments.size]),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Icon(
-                    painter = painterResource(entry.iconRes),
-                    contentDescription = null,
-                    tint = entry.color,
-                    modifier = Modifier.size(16.dp)
-                )
-                Text(
-                    text = entry.levelText,
-                    style = MaterialTheme.typography.labelSmall,
-                    color = entry.color
-                )
+            CappedFontScale(max = 1.2f) {
+                Column(
+                    modifier = Modifier.align(alignments[index % alignments.size]),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Icon(
+                        painter = painterResource(entry.iconRes),
+                        contentDescription = null,
+                        tint = entry.color,
+                        modifier = Modifier.size(16.dp)
+                    )
+                    Text(
+                        text = entry.levelText,
+                        style = MaterialTheme.typography.labelSmall,
+                        color = entry.color
+                    )
+                }
             }
         }
     }
